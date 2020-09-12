@@ -21,8 +21,7 @@ public class UserAccount {
     public UserAccount() {
     }
 
-    public Map<String, Recipe> getRecipes()
-    {
+    public Map<String, Recipe> getRecipes() {
         return recipes;
     }
 
@@ -41,37 +40,37 @@ public class UserAccount {
         return username;
     }
 
-    public void changePassword(String newPass) {
-        this.password = newPass;
-    }
-
-    public void changeEmail(String newEmail) {
-        this.email = newEmail;
-    }
-
     public void addFriend(String friend) {
         friends.add(friend);
     }
 
-    public void addRecipe(MainActivity activity, String name, Recipe recipe) {
+    public void addRecipe(String name, Recipe recipe) {
         recipes.put(name, recipe);
     }
 
     public void adjustRecipe(MainActivity activity, String recipeName, String ingredient, int quan, String unit) {
-        recipes.get(recipeName).addIngredient(ingredient, quan, unit);
-        activity.getDatabase().setValue(recipes, "users", username, "recipes");
+        Recipe recipe = recipes.get(recipeName);
+        if (recipe != null) {
+            recipe.addIngredient(ingredient, quan, unit);
+            activity.getDatabase().setValue(recipes, "users", username, "recipes");
+        }
     }
 
-    public void addResDesc(MainActivity activity, String recipeName, String desc, String inst)
-    {
-        recipes.get(recipeName).addDesc(desc, inst);
-        activity.getDatabase().setValue(recipes, "user", username, "recipes");
+    public void addResDesc(MainActivity activity, String recipeName, String desc, String inst) {
+        Recipe recipe = recipes.get(recipeName);
+        if (recipe != null) {
+            recipe.addDesc(desc, inst);
+            activity.getDatabase().setValue(recipes, "user", username, "recipes");
+        }
     }
 
-    public void removeIng(MainActivity activity, String recipeName, String ingredient)
-    {
-        recipes.get(recipeName).removeIngredient(ingredient);
-        activity.getDatabase().setValue(recipes, "users", username, "recipes");
+    public void removeIng(MainActivity activity, String recipeName, String ingredient) {
+        Recipe recipe = recipes.get(recipeName);
+        if (recipe != null) {
+            recipe.removeIngredient(ingredient);
+            activity.getDatabase().setValue(recipes, "users", username, "recipes");
+        }
+
     }
 
     public List<String> getFriends() {

@@ -13,26 +13,23 @@ public class PostView extends BaseView {
         super(context);
         activity.setContentView(R.layout.add_recipe_post);
 
-        activity.findViewById(R.id.createRecipe).setOnClickListener( onclick -> {
+        activity.findViewById(R.id.createRecipe).setOnClickListener(onclick -> {
             EditText recipeName = activity.findViewById(R.id.recipeTitle);
             String nationality = ((Spinner) activity.findViewById(R.id.nationality)).getSelectedItem().toString();
             String type = ((Spinner) activity.findViewById(R.id.insertType)).getSelectedItem().toString();
 
-            
+
             String recipeNameStr = recipeName.getText().toString();
-            if(recipeNameStr.isEmpty()) {
+            if (recipeNameStr.isEmpty()) {
                 recipeName.setError("Recipe Name Not Found!");
             }
 
-            activity.getProfile().addRecipe(activity, recipeNameStr, new Recipe(activity, recipeNameStr, nationality, type));
+            activity.getProfile().addRecipe(recipeNameStr, new Recipe(recipeNameStr, nationality, type));
 
             activity.changeView(new AdjustRecipe(context, recipeNameStr));
         });
 
-        activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
-            activity.changeView(new FeedView(context));
-        });
-
+        activity.findViewById(R.id.ExitPost).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
 
 
     }

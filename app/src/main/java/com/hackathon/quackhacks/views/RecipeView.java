@@ -1,21 +1,19 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
-import android.text.Html;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
-import com.hackathon.quackhacks.backend.UserAccount;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class RecipeView extends BaseView {
-    public RecipeView(Context context, String user, Recipe recipe) {
+    public RecipeView(Context context) {
+        super(context);
+    }
+
+    public RecipeView(Context context, Recipe recipe) {
         super(context);
         activity.setContentView(R.layout.recipedisplay);
 
@@ -33,16 +31,13 @@ public class RecipeView extends BaseView {
         List<Integer> qua = recipe.getQuantity();
         List<String> uni = recipe.getUnits();
 
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
 
-        for(int i = 0; i < ing.size(); i++)
-        {
-            temp += qua.get(i) + " " + uni.get(i) + "(s) of " + ing.get(i)+"\n";
+        for (int i = 0; i < ing.size(); i++) {
+            temp.append(qua.get(i)).append(" ").append(uni.get(i)).append("(s) of ").append(ing.get(i)).append("\n");
         }
-        ingredients.setText(temp);
-        activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
-            activity.changeView(new FeedView(context));
-        });
+        ingredients.setText(temp.toString());
+        activity.findViewById(R.id.ExitPost).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
 
     }
 }

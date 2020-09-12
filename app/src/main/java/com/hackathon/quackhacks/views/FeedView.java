@@ -32,25 +32,11 @@ public class FeedView extends BaseView {
         super(context);
         activity.setContentView(R.layout.feed);
 
-        activity.findViewById(R.id.feed).setOnClickListener(onclick -> {
-            activity.changeView(new FriendProfileView(context));
-        });
-        activity.findViewById(R.id.posting).setOnClickListener(onclick -> {
-            activity.changeView(new PostView(context));
-        });
-        activity.findViewById(R.id.profile).setOnClickListener(onclick -> {
-            activity.changeView(new ProfileView(context));
-        });
+        activity.findViewById(R.id.feed).setOnClickListener(onclick -> activity.changeView(new FriendProfileView(context)));
+        activity.findViewById(R.id.posting).setOnClickListener(onclick -> activity.changeView(new PostView(context)));
+        activity.findViewById(R.id.profile).setOnClickListener(onclick -> activity.changeView(new ProfileView(context)));
 
-        activity.findViewById(R.id.reloadBtn).setOnClickListener(onclick -> {
-            reload();
-        });
-
-//        Spinner friendNames = activity.findViewById(R.id.typeSpin);
-//        List<String> temp = activity.getProfile().getFriends();
-//        temp.add("No Friends Yet!");
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.feed, temp);
-//        friendNames.setAdapter(adapter);
+        activity.findViewById(R.id.reloadBtn).setOnClickListener(onclick -> reload());
 
         reload();
     }
@@ -64,6 +50,7 @@ public class FeedView extends BaseView {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             List<Recipe> recipePosts = new ArrayList<>();
             Map<Recipe, String> recipesMap = new HashMap<>();
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (String friend : activity.getProfile().getFriends()) {
@@ -102,9 +89,7 @@ public class FeedView extends BaseView {
         ((TextView) layout.findViewById(R.id.recipe_postbox)).setText(recipe.title);
 
         LinearLayout linear = activity.findViewById(R.id.postsLayout);
-        layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> {
-            activity.changeView(new RecipeView(activity, user, recipe));
-        });
+        layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> activity.changeView(new RecipeView(activity, recipe)));
         linear.addView(layout);
     }
 

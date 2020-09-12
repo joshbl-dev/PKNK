@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hackathon.quackhacks.R;
@@ -28,7 +26,7 @@ public class ProfileView extends BaseView {
         ((TextView) layout.findViewById(R.id.recipe_postbox)).setText(recipe.title);
 
         layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> {
-            activity.changeView(new RecipeView(activity, user, recipe));
+            activity.changeView(new RecipeView(activity, recipe));
         });
 
         LinearLayout linear = activity.findViewById(R.id.linearLay);
@@ -45,12 +43,11 @@ public class ProfileView extends BaseView {
         Map<String, Recipe> recMap = activity.getProfile().getRecipes();
         Set<String> names = recMap.keySet();
 
-        for(String name: names)
-        {
+        for (String name : names) {
             addPost(name, recMap.get(name));
         }
 
-        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener( onclick -> {
+        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> {
             activity.changeView(new FeedView(context));
         });
         /*An attempt
