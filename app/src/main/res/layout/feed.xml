@@ -23,28 +23,28 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/feed"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
-        android:text="Feed"
+        android:text="Friend Profiles"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/posting"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:text="Posting"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/profile"
+        app:layout_constraintStart_toEndOf="@+id/feed"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/profile"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -55,38 +55,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/typeSpin"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        app:layout_constraintEnd_toStartOf="@+id/apply"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/posting" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/apply"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:text="Apply"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/typeSpin"
+        app:layout_constraintTop_toBottomOf="@+id/profile"
         app:layout_constraintVertical_bias="0.48" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
