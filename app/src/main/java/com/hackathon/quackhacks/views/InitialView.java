@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ public class InitialView extends BaseView {
         activity.findViewById(R.id.createAccountbutton).setOnClickListener(onclick -> signup());
         activity.findViewById(R.id.loginBut).setOnClickListener(onclick -> login());
 
+        attemptLogin();
+
         setOnKeyListener((v, keyCode, event) -> {
             if (keyCode == 66) {
                 login();
@@ -54,7 +57,6 @@ public class InitialView extends BaseView {
             }
         }
 
-
         String usernameStr = username.getText().toString();
 
         if (filled) {
@@ -70,7 +72,7 @@ public class InitialView extends BaseView {
                         username.setError("Username not found");
                     } else if ((pwd = snapshot.child(usernameStr).child("password").getValue()) != null && pwd.equals(password.getText().toString())) {
                         activity.setProfile(snapshot.child(usernameStr).getValue(UserAccount.class));
-
+                        saveLogin(usernameStr, (String) pwd);
                         activity.changeView(new FeedView(activity));
 
                     } else {
@@ -84,6 +86,27 @@ public class InitialView extends BaseView {
 
                 }
             });
+        }
+    }
+
+    private void saveLogin(String username, String password) {
+        SharedPreferences sp = activity.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.putString("Unm", username);
+        Ed.putString("Psw", password);
+        Ed.apply();
+    }
+
+    private void attemptLogin() {
+        SharedPreferences sp = activity.getSharedPreferences("Login", Context.MODE_PRIVATE);
+
+        String username = sp.getString("Unm", null);
+        String password = sp.getString("Psw", null);
+
+        if (username != null && password != null) {
+            this.username.setText(username);
+            this.password.setText(password);
+            login();
         }
     }
 

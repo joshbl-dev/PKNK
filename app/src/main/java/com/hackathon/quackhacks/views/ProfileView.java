@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,9 +27,20 @@ public class ProfileView extends BaseView {
             new PostBox(activity, this, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
         }
 
-        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> {
-            activity.changeView(new FeedView(context));
-        });
+        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
+
+        activity.findViewById(R.id.logoutBtn).setOnClickListener(onclick -> logout());
+
+
+    }
+
+    private void logout() {
+        SharedPreferences sp = activity.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor Ed = sp.edit();
+        Ed.remove("Unm");
+        Ed.remove("Psw");
+        Ed.apply();
+        activity.changeView(new InitialView(activity));
     }
 
     @Override
