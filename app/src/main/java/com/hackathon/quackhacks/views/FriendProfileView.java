@@ -62,7 +62,7 @@ public class FriendProfileView extends BaseView {
 
                         friendName.setText("Request Sent");
 
-                        friendRemove.setVisibility(View.VISIBLE);
+                        friendRemove.setEnabled(true);
 
                         activity.getDatabase().storeUser(friendProfile);
 
@@ -119,7 +119,7 @@ public class FriendProfileView extends BaseView {
         });
 
         if (profile.friends.size() > 0) {
-            friendRemove.setVisibility(View.VISIBLE);
+            friendRemove.setEnabled(true);
         }
 
         reload();
