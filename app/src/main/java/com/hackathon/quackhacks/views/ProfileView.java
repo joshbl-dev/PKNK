@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
+import com.hackathon.quackhacks.widget.PostBox;
 
 public class ProfileView extends BaseView {
 

@@ -26,7 +26,7 @@ public class PostView extends BaseView {
 
             activity.getProfile().addRecipe(recipeNameStr, new Recipe(recipeNameStr, nationality, type));
 
-            activity.changeView(new AdjustRecipe(context, recipeNameStr));
+            activity.changeView(new AdjustRecipeView(context, recipeNameStr));
         });
 
         activity.findViewById(R.id.ExitPost).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));

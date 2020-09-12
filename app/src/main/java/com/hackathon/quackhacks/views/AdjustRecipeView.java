@@ -14,15 +14,15 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class AdjustRecipe extends BaseView {
+public class AdjustRecipeView extends BaseView {
 
     public Map<String, TextView> recMap = new HashMap<>();
 
-    public AdjustRecipe(Context context) {
+    public AdjustRecipeView(Context context) {
         super(context);
     }
 
-    public AdjustRecipe(Context context, String recipeName) {
+    public AdjustRecipeView(Context context, String recipeName) {
         super(context);
 
         activity.setContentView(R.layout.adjust_recipe);
@@ -64,9 +64,11 @@ public class AdjustRecipe extends BaseView {
             activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
             //boxList.remove(ingredient.getText().toString());
 
-            recMap.get(ingredient.getText().toString()).setVisibility(View.INVISIBLE);
-            recMap.get(ingredient.getText().toString()).setHeight(0);
-
+            TextView textView = recMap.get(ingredient.getText().toString());
+            if (textView != null) {
+                textView.setVisibility(View.INVISIBLE);
+                textView.setHeight(0);
+            }
         });
 
         activity.findViewById(R.id.button3).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
@@ -83,7 +85,7 @@ public class AdjustRecipe extends BaseView {
             }
 
             activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
-            //Following line should be redundent, however for some reason the addResDesc was not triggering addDesc as well.
+            //Following line should be redundant, however for some reason the addResDesc was not triggering addDesc as well.
             recipe.addDesc(description.getText().toString(), instructions.getText().toString());
 
             activity.changeView(new FeedView(context));

@@ -1,4 +1,4 @@
-package com.hackathon.quackhacks.views;
+package com.hackathon.quackhacks.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
+import com.hackathon.quackhacks.views.BaseView;
+import com.hackathon.quackhacks.views.RecipeView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

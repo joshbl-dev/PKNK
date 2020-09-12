@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 import com.hackathon.quackhacks.backend.UserAccount;
+import com.hackathon.quackhacks.widget.PostBox;
 
 import java.util.ArrayList;
 import java.util.Collections;
