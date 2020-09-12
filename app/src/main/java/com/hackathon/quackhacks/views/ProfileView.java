@@ -5,6 +5,11 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+<<<<<<< Updated upstream
+=======
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+>>>>>>> Stashed changes
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hackathon.quackhacks.R;
