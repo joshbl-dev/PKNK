@@ -78,14 +78,13 @@
             app:layout_constraintTop_toBottomOf="@+id/ExitSelfProfile" />
 
     <Button
-            android:id="@+id/addFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Add"
-            app:layout_constraintBottom_toTopOf="@+id/friendscroll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6" />
+        android:id="@+id/addFriend"
+        android:layout_width="73dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="16dp"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/friendscroll"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6" />
 
     <Button
             android:id="@+id/requestsBtn"
@@ -97,6 +96,19 @@
             android:text="Requests"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/removeFriend"
+        android:layout_width="83dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="17dp"
+        android:visibility="invisible"
+        android:text="Remove"
+        app:layout_constraintBottom_toTopOf="@+id/friendscroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addFriend"
+        app:layout_constraintTop_toBottomOf="@+id/requestsBtn" />
 
     =======
         app:layout_constraintEnd_toEndOf="parent"

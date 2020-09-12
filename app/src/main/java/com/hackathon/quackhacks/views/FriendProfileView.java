@@ -1,6 +1,8 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class FriendProfileView extends BaseView {
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
+            Button friendRemove = activity.findViewById(R.id.removeFriend);
 
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef = rootRef.child("users");
@@ -36,6 +39,7 @@ public class FriendProfileView extends BaseView {
             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                     String friendNameStr = friendName.getText().toString();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
@@ -46,6 +50,7 @@ public class FriendProfileView extends BaseView {
                     } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You already have this friend!");
+                        friendRemove.setVisibility(View.VISIBLE);
                     } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You cannot add yourself.");
@@ -54,6 +59,10 @@ public class FriendProfileView extends BaseView {
                         String profileName = profile.getUsername();
                         profile.friendsPending.add(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+
+                        friendName.setText("Request Sent");
+
+                        friendRemove.setVisibility(View.VISIBLE);
 
                         activity.getDatabase().storeUser(friendProfile);
 
@@ -71,6 +80,10 @@ public class FriendProfileView extends BaseView {
 
                 }
             });
+
+        });
+
+        activity.findViewById(R.id.removeFriend).setOnClickListener(onclick -> {
 
         });
 
