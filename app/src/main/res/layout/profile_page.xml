@@ -20,14 +20,20 @@
 
     <EditText
         android:id="@+id/enterUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="407dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Enter New Username"
         android:inputType="textPersonName"
         android:textAlignment="center"
+<<<<<<< HEAD
+=======
         app:layout_constraintEnd_toStartOf="@id/edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
@@ -39,20 +45,25 @@
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:text="Edit"
+>>>>>>> main
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/enterUser"
-        app:layout_constraintTop_toTopOf="@+id/enterUser" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
 
     <EditText
         android:id="@+id/enterEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="408dp"
+        android:layout_height="42dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
         android:ems="10"
         android:gravity="center_horizontal"
         android:hint="Enter New Email"
         android:inputType="textPersonName"
         android:textAlignment="center"
+<<<<<<< HEAD
+=======
         app:layout_constraintEnd_toStartOf="@id/edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterUser" />
@@ -64,9 +75,10 @@
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:text="Edit"
+>>>>>>> main
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/enterEmail"
-        app:layout_constraintTop_toTopOf="@+id/enterEmail" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterUser" />
 
     <TextView
         android:id="@+id/myRecipes"
