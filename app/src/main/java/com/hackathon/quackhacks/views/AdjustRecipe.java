@@ -2,6 +2,7 @@ package com.hackathon.quackhacks.views;
 
 import android.content.Context;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
@@ -36,6 +37,17 @@ public class AdjustRecipe extends BaseView {
 
 
             activity.getProfile().adjustRecipe(activity, recipeName, ingredient.getText().toString(), parseInt(quantity.getText().toString()), unit.getText().toString());
+
+            LinearLayout lay = activity.findViewById(R.id.lin);
+
+            TextView textView1 = new TextView(activity);
+            textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView1.setText(quantity.getText().toString() + " " + unit.getText().toString() + "(s) of " + ingredient.getText().toString());
+            textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+            textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            lay.addView(textView1);
+
         });
 
         activity.findViewById(R.id.button3).setOnClickListener( onclick ->{
@@ -57,5 +69,7 @@ public class AdjustRecipe extends BaseView {
 
             activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
         });
+
+
     }
 }

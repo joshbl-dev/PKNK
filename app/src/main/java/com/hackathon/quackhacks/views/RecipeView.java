@@ -1,6 +1,8 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.text.Html;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +15,6 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class RecipeView extends BaseView {
-
     public RecipeView(Context context, String user, Recipe recipe) {
         super(context);
         activity.setContentView(R.layout.recipedisplay);
@@ -27,10 +28,13 @@ public class RecipeView extends BaseView {
         TextView ingredients = activity.findViewById(R.id.ingredients);
         List<String> ing = recipe.getIngredients();
 
+        String ingredientsStr = "";
         for(int i = 0; i < ing.size(); i++)
         {
-            ingredients.setText(ingredients.getText().toString() + ing.get(i) + "\n");
+            ingredientsStr += ing.indexOf(i) + "\n";
         }
+
+        ingredients.setText(ingredientsStr);
 
         activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
             activity.changeView(new FeedView(context));
