@@ -88,6 +88,9 @@ public class FeedView extends BaseView {
         ((TextView) layout.findViewById(R.id.recipe_postbox)).setText(recipe.title);
 
         LinearLayout linear = activity.findViewById(R.id.postsLayout);
+        layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> {
+            activity.changeView(new RecipeView(activity, user, recipe));
+        });
         linear.addView(layout);
     }
 

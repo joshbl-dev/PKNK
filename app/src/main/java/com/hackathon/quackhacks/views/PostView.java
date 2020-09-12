@@ -33,5 +33,7 @@ public class PostView extends BaseView {
             activity.changeView(new FeedView(context));
         });
 
+
+
     }
 }
