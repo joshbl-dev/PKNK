@@ -46,10 +46,6 @@ public class Recipe implements Comparable<Recipe> {
         return description;
     }
 
-    public String getInstructions() {
-        return instructions;
-    }
-
     public List<String> getIngredients() {
         List<String> ingList = new ArrayList<String>();
         for (int i = 0; i < ingredients.size(); i++) {
