@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
+import com.hackathon.quackhacks.backend.UserAccount;
 
 public class FriendProfileView extends BaseView {
 
@@ -33,16 +34,24 @@ public class FriendProfileView extends BaseView {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Object pwd;
-                    if (!snapshot.hasChild(friendName.toString())) {
+                    String friendNameStr = friendName.getText().toString();
+                    if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("Username not found");
                     }
                     else {
-                        activity.getProfile().addFriend(friendName.toString());
+                        UserAccount profile = activity.getProfile();
+                        String profileName = profile.getUsername();
+                        profile.addFriend(friendNameStr);
+                        UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+                        friendProfile.addFriend(profileName);
+
+
                         friendsLbl.setVisibility(View.VISIBLE);
                         friendsCount.setVisibility(View.VISIBLE);
                         friendsCount.setText(Integer.toString(activity.getProfile().getFriends().size()));
-                        activity.getDatabase().setValue(activity.getProfile().getFriends(), "users", activity.getProfile().getUsername(), "friends");
+                        activity.getDatabase().setValue(profile.getFriends(), "users", profileName, "friends");
+                        activity.getDatabase().setValue(friendProfile.getFriends(), "users", friendNameStr, "friends");
                     }
                 }
 
