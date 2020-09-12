@@ -14,3 +14,5 @@
 build/intermediates/lint-cache/
 
 local.properties
+
+.idea/caches/

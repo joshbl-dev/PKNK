@@ -37,31 +37,31 @@ public class FriendRequestView extends BaseView {
         user.friendRequests.remove(friendRequest);
 
         String username = user.getUsername();
-        UserAccount friend = activity.getDatabase().getUser(friendRequest);
+                UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef = rootRef.child("users");
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                rootRef = rootRef.child("users");
 
         if (friend == null) {
-            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(friendRequest)) {
-                        activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(friendRequest)) {
+                                activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
 
-                        UserAccount friend = activity.getDatabase().getUser(friendRequest);
+                                UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-                        friend.friendsPending.remove(username);
-                        friend.addFriend(username);
+                                friend.friendsPending.remove(username);
+                                friend.addFriend(username);
 
-                        save(friend);
-                    }
-                }
+                                save(friend);
+                            }
+                        }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                }
+                        }
             });
         } else {
             friend.friendsPending.remove(username);

@@ -28,10 +28,14 @@ public class FriendProfileView extends BaseView {
         activity.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> activity.changeView(new FriendRequestView(activity)));
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> activity.changeView(new FeedView(activity)));
 
-        activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
-            EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
-            Button friendRemove = activity.findViewById(R.id.removeFriend);
+        UserAccount profile = activity.getProfile();
+        String profileName = profile.getUsername();
 
+        EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
+        String friendNameStr = friendName.getText().toString();
+        Button friendRemove = activity.findViewById(R.id.removeFriend);
+
+        activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef = rootRef.child("users");
 
@@ -39,8 +43,6 @@ public class FriendProfileView extends BaseView {
             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    String friendNameStr = friendName.getText().toString();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist.");
@@ -55,8 +57,6 @@ public class FriendProfileView extends BaseView {
                         friendName.setText("");
                         friendName.setError("You cannot add yourself.");
                     } else {
-                        UserAccount profile = activity.getProfile();
-                        String profileName = profile.getUsername();
                         profile.friendsPending.add(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
@@ -82,11 +82,48 @@ public class FriendProfileView extends BaseView {
             });
 
         });
-
         activity.findViewById(R.id.removeFriend).setOnClickListener(onclick -> {
+            if (profile.friends.contains(friendNameStr)) {
+                profile.friends.remove(friendNameStr);
+                friendName.setText("");
+                activity.getDatabase().setValue(profile.friends, "users", profileName, "friends");
 
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                rootRef = rootRef.child("users");
+
+                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(friendNameStr)) {
+                            activity.getDatabase().storeUser(snapshot.child(friendNameStr).getValue(UserAccount.class));
+
+                            UserAccount friend = activity.getDatabase().getUser(friendNameStr);
+
+                            friend.friends.remove(profileName);
+
+                            activity.getDatabase().setValue(friend.friends, "users", friendNameStr, "friends");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                activity.getDatabase().setValue(profile.friends, "users", profileName, "friends");
+                reload();
+            }
         });
 
+        if (profile.friends.size() > 0) {
+            friendRemove.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void reload() {
         for (int i = 0; i < activity.getProfile().getFriends().size(); i++) {
             LinearLayout lay = activity.findViewById(R.id.linLa);
             TextView textView = new TextView(activity);
@@ -98,7 +135,5 @@ public class FriendProfileView extends BaseView {
 
         TextView friends = activity.findViewById(R.id.friends);
         friends.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
-
     }
-
 }
