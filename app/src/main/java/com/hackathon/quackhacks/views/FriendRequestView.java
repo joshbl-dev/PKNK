@@ -38,10 +38,10 @@ public class FriendRequestView extends BaseView {
             LayoutInflater inflater = LayoutInflater.from(activity);
             ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.friend_request, null, false);
 
-            LinearLayout linear = activity.findViewById(R.id.requests);
+            LinearLayout linear = activity.findViewById(R.id.pending);
             ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
             layout.findViewById(R.id.acceptbtn).setVisibility(INVISIBLE);
-            layout.findViewById(R.id.acceptbtn).setVisibility(INVISIBLE);
+            layout.findViewById(R.id.rejectBtn).setVisibility(INVISIBLE);
             linear.addView(layout);
         }
     }

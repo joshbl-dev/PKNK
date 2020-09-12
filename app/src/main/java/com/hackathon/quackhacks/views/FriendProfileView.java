@@ -24,6 +24,7 @@ public class FriendProfileView extends BaseView {
         activity.setContentView(R.layout.friend_profile);
 
         activity.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> activity.changeView(new FriendRequestView(activity)));
+        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> activity.changeView(new FeedView(activity)));
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
@@ -51,15 +52,15 @@ public class FriendProfileView extends BaseView {
                     } else {
                         UserAccount profile = activity.getProfile();
                         String profileName = profile.getUsername();
-                        profile.addFriend(friendNameStr);
+                        profile.friendsPending.add(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
                         activity.getDatabase().storeUser(friendProfile);
 
                         if (friendProfile != null) {
-                            friendProfile.addFriend(profileName);
-                            activity.getDatabase().setValue(profile.getFriends(), "users", profileName, "friends");
-                            activity.getDatabase().setValue(friendProfile.getFriends(), "users", friendNameStr, "friends");
+                            friendProfile.friendRequests.add(profileName);
+                            activity.getDatabase().setValue(profile.friendsPending, "users", profileName, "friendsPending");
+                            activity.getDatabase().setValue(friendProfile.friendRequests, "users", friendNameStr, "friendRequests");
                         }
                     }
                 }
