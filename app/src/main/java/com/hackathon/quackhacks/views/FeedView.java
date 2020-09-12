@@ -4,9 +4,7 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
-import com.hackathon.quackhacks.backend.UserAccount;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,8 @@ public class FeedView extends BaseView {
             activity.changeView(new ProfileView(context));
         });
 
-        Spinner friendNames = (Spinner) findViewById(R.id.typeSpin);
+        Spinner friendNames = activity.findViewById(R.id.typeSpin);
+//        friendNames.setId(R.id.typeSpin);
         ArrayList<String> temp = new ArrayList<String>();
         for(int i = 0; i < activity.getProfile().getFriends().size(); i++)
         {

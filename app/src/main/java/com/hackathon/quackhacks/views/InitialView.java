@@ -60,12 +60,12 @@ public class InitialView extends BaseView {
                     if (!snapshot.hasChild(usernameStr)) {
                         username.setText("");
                         username.setError("Username not found");
-                    } else if ((pwd = snapshot.child(usernameStr).child("password").getValue()) != null && pwd.equals(password)) {
-                        activity.setProfile((UserAccount) snapshot.child(usernameStr).getValue());
+                    } else if ((pwd = snapshot.child(usernameStr).child("password").getValue()) != null && pwd.equals(password.getText().toString())) {
+                        activity.setProfile(snapshot.child(usernameStr).getValue(UserAccount.class));
                         activity.changeView(new FeedView(activity));
 
                     } else {
-                        username.setText("");
+                        username.setText(pwd != null ? pwd.toString() : "Null");
                         username.setError("Password invalid");
                     }
                 }
