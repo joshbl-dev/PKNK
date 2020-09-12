@@ -79,8 +79,4 @@ public class Recipe implements Comparable<Recipe> {
     public int compareTo(Recipe r) {
         return Long.compare(r.timestamp, timestamp);
     }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
 }
