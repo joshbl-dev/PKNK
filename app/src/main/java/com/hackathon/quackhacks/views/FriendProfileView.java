@@ -75,11 +75,12 @@ public class FriendProfileView extends BaseView {
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             textView.setText(activity.getProfile().getFriends().get(i));
             textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            textView.setTextSize(16);
             lay.addView(textView);
         }
 
         TextView friends = activity.findViewById(R.id.Friends);
-        friends.setText("Friends: " + activity.getProfile().getFriends().size());
+        friends.setText("My Friends: " + activity.getProfile().getFriends().size());
 
     }
 

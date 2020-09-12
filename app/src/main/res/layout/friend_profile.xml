@@ -90,21 +90,15 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="337dp"
-        android:layout_marginRight="337dp"
         android:layout_marginBottom="21dp"
-        android:text="Friends:"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-<<<<<<< Updated upstream
+        android:text="My Friends: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/friendscroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
         app:layout_constraintVertical_bias="0.0" />
-=======
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
->>>>>>> Stashed changes
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
