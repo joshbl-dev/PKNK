@@ -33,35 +33,39 @@ public class FriendRequestView extends BaseView {
     }
 
     private void accept(String friendRequest) {
-        user.addFriend(friendRequest);
+        if (!user.friends.contains(friendRequest)) {
+            user.addFriend(friendRequest);
+        }
         user.friendRequests.remove(friendRequest);
 
         String username = user.getUsername();
-                UserAccount friend = activity.getDatabase().getUser(friendRequest);
+        UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                rootRef = rootRef.child("users");
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef = rootRef.child("users");
 
         if (friend == null) {
-                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(friendRequest)) {
-                                activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
+            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(friendRequest)) {
+                        activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
 
-                                UserAccount friend = activity.getDatabase().getUser(friendRequest);
+                        UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-                                friend.friendsPending.remove(username);
-                                friend.addFriend(username);
-
-                                save(friend);
-                            }
+                        friend.friendsPending.remove(username);
+                        if (!friend.friends.contains(username)) {
+                            friend.addFriend(username);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                        save(friend);
+                    }
+                }
 
-                        }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
             });
         } else {
             friend.friendsPending.remove(username);
