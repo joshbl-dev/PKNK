@@ -14,6 +14,7 @@ public class Recipe implements Comparable<Recipe> {
     public List<String> units = new ArrayList<>();
     public List<Integer> quantities = new ArrayList<>();
     public String description = "None yet";
+    public String instructions = "None yet";
     public String nationality;
     public String type; // This represents whether it is a desert, dinner, breakfast, etc.
 
@@ -35,6 +36,12 @@ public class Recipe implements Comparable<Recipe> {
         ingredients.add(ingredient);
         quantities.add(quantity);
         units.add(unit);
+    }
+
+    public void addDesc(String desc, String inst)
+    {
+        description = desc;
+        instructions = inst;
     }
 
     @Override

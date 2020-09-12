@@ -9,6 +9,8 @@ import com.hackathon.quackhacks.backend.UserAccount;
 import com.hackathon.quackhacks.views.BaseView;
 import com.hackathon.quackhacks.views.InitialView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private Database database = new Database();
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        
         changeView(new InitialView(this));
 
 

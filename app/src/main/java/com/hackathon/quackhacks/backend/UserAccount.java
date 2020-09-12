@@ -57,6 +57,12 @@ public class UserAccount {
         activity.getDatabase().setValue(recipes, "users", username, "recipes");
     }
 
+    public void addResDesc(MainActivity activity, String recipeName, String desc, String inst)
+    {
+        recipes.get(recipeName).addDesc(desc, inst);
+        activity.getDatabase().setValue(recipes, "user", username, "recipes");
+    }
+
     public List<String> getFriends() {
         return friends;
     }
