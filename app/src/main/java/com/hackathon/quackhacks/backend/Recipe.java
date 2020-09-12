@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.backend;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.hackathon.quackhacks.MainActivity;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class Recipe implements Comparable<Recipe> {
 
     public String title;
     public ArrayList<String> ingredients;
+    public ArrayList<String> units;
     public ArrayList<Integer> quantities;
     public String description;
     public String nationality;
@@ -19,18 +21,21 @@ public class Recipe implements Comparable<Recipe> {
     public Recipe() {
     }
 
-    public Recipe(String title, String description, String nationality, String type) {
+    public Recipe(MainActivity activity, String title, String description, String nationality, String type) {
         this.title = title;
         this.description = description;
         this.nationality = nationality;
         this.type = type;
 
         timestamp = System.currentTimeMillis();
+
+
     }
 
-    public void addIngredient(String ingredient, int quantity) {
+    public void addIngredient(String ingredient, int quantity, String unit) {
         ingredients.add(ingredient);
         quantities.add(quantity);
+        units.add(unit);
     }
 
     @Override
