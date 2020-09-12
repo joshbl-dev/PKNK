@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
+import java.util.Locale;
+
 public class FriendProfileView extends BaseView {
 
     public FriendProfileView(Context context) {
@@ -80,8 +82,8 @@ public class FriendProfileView extends BaseView {
             lay.addView(textView);
         }
 
-        TextView friends = activity.findViewById(R.id.Friends);
-        friends.setText("My Friends: " + activity.getProfile().getFriends().size());
+        TextView friends = activity.findViewById(R.id.friends);
+        friends.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
 
     }
 

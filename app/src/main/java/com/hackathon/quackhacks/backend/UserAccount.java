@@ -15,6 +15,8 @@ public class UserAccount {
     public String password;
 
     public List<String> friends = new ArrayList<>();
+    public List<String> friendRequests = new ArrayList<>();
+    public List<String> friendsPending = new ArrayList<>();
 
     public Map<String, Recipe> recipes = new HashMap<>();
 
