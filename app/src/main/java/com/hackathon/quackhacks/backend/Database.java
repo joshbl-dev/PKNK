@@ -18,4 +18,14 @@ public class Database {
     public void setValue(String node, String value, Object key) {
         getReference().child(node).child(value).setValue(key);
     }
+
+    public void setValue(Object key, String... nodes) {
+        DatabaseReference ref = getReference();
+
+        for (String node : nodes) {
+            ref = ref.child(node);
+        }
+
+        ref.setValue(key);
+    }
 }

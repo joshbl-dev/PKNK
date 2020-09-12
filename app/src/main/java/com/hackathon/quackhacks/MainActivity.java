@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeView(new InitialView(this));
+
+
     }
 
     public void changeView(BaseView view) {
