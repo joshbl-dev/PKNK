@@ -35,13 +35,13 @@ public class FriendProfileView extends BaseView {
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist.");
-                    } else if(friendNameStr.isEmpty()) {
+                    } else if (friendNameStr.isEmpty()) {
                         friendName.setText("");
                         friendName.setError("Insert name here.");
                     } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You already have this friend!");
-                    } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)){
+                    } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You cannot add yourself.");
                     } else {
@@ -69,16 +69,13 @@ public class FriendProfileView extends BaseView {
 
         });
 
-        for(int i = 0; i < activity.getProfile().getFriends().size(); i++)
-        {
+        for (int i = 0; i < activity.getProfile().getFriends().size(); i++) {
             LinearLayout lay = activity.findViewById(R.id.linLa);
-            TextView textView1 = new TextView(activity);
-            textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            textView1.setText(activity.getProfile().getFriends().get(i));
-            textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-            textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-            lay.addView(textView1);
+            TextView textView = new TextView(activity);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setText(activity.getProfile().getFriends().get(i));
+            textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            lay.addView(textView);
         }
 
         TextView friends = activity.findViewById(R.id.Friends);
