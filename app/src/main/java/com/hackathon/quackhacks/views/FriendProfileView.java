@@ -42,6 +42,7 @@ public class FriendProfileView extends BaseView {
                         friendsLbl.setVisibility(View.VISIBLE);
                         friendsCount.setVisibility(View.VISIBLE);
                         friendsCount.setText(Integer.toString(activity.getProfile().getFriends().size()));
+                        activity.getDatabase().setValue(activity.getProfile().getFriends(), "users", activity.getProfile().getUsername(), "friends");
                     }
                 }
 
