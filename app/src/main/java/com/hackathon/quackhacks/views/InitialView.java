@@ -58,7 +58,6 @@ public class InitialView extends BaseView {
                             return;
                         }
                         activity.setProfile(new UserAccount(activity, email.getText().toString(), usernameStr, password.getText().toString()));
-                        activity.setContentView(R.layout.feed);
                         activity.changeView(new FeedView(context));
                     }
 
