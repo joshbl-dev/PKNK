@@ -29,10 +29,6 @@ public class UserAccount {
         activity.getDatabase().setValue("users", username, this);
     }
 
-    public void changeUsername(String newName) {
-        this.username = newName;
-    }
-
     public void changePassword(String newPass) {
         this.password = newPass;
     }
