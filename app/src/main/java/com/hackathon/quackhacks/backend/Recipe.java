@@ -94,7 +94,7 @@ public class Recipe implements Comparable<Recipe> {
 
     @Override
     public int compareTo(Recipe r) {
-        return Long.compare(timestamp, r.timestamp);
+        return Long.compare(r.timestamp, timestamp);
     }
 
     public long getTimestamp() {
