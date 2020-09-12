@@ -29,27 +29,7 @@ public class FriendRequestView extends BaseView {
 
         activity.findViewById(R.id.backBtn).setOnClickListener(onclick -> activity.changeView(new FriendProfileView(activity)));
 
-        for (String friendRequest : user.friendRequests) {
-            LayoutInflater inflater = LayoutInflater.from(activity);
-            ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.friend_request, null, false);
-
-            LinearLayout linear = activity.findViewById(R.id.requests);
-            ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
-            layout.findViewById(R.id.acceptbtn).setOnClickListener(onclick -> accept(friendRequest));
-            layout.findViewById(R.id.rejectBtn).setOnClickListener(onclick -> reject(friendRequest));
-            linear.addView(layout);
-        }
-
-        for (String friendRequest : user.friendsPending) {
-            LayoutInflater inflater = LayoutInflater.from(activity);
-            ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.friend_request, null, false);
-
-            LinearLayout linear = activity.findViewById(R.id.pending);
-            ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
-            layout.findViewById(R.id.acceptbtn).setVisibility(INVISIBLE);
-            layout.findViewById(R.id.rejectBtn).setVisibility(INVISIBLE);
-            linear.addView(layout);
-        }
+        reload();
     }
 
     private void accept(String friendRequest) {
@@ -130,5 +110,34 @@ public class FriendRequestView extends BaseView {
 
     private void save(UserAccount userAccount) {
         activity.getDatabase().setValue("users", userAccount.getUsername(), userAccount);
+        reload();
+    }
+
+    @Override
+    public void reload() {
+        ((LinearLayout) activity.findViewById(R.id.pending)).removeAllViewsInLayout();
+        ((LinearLayout) activity.findViewById(R.id.requests)).removeAllViewsInLayout();
+
+        for (String friendRequest : user.friendRequests) {
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.friend_request, null, false);
+
+            LinearLayout linear = activity.findViewById(R.id.requests);
+            ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
+            layout.findViewById(R.id.acceptbtn).setOnClickListener(onclick -> accept(friendRequest));
+            layout.findViewById(R.id.rejectBtn).setOnClickListener(onclick -> reject(friendRequest));
+            linear.addView(layout);
+        }
+
+        for (String friendRequest : user.friendsPending) {
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.friend_request, null, false);
+
+            LinearLayout linear = activity.findViewById(R.id.pending);
+            ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
+            layout.findViewById(R.id.acceptbtn).setVisibility(INVISIBLE);
+            layout.findViewById(R.id.rejectBtn).setVisibility(INVISIBLE);
+            linear.addView(layout);
+        }
     }
 }
