@@ -15,11 +15,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
+import java.util.Locale;
+
 public class FriendProfileView extends BaseView {
 
     public FriendProfileView(Context context) {
         super(context);
         activity.setContentView(R.layout.friend_profile);
+
+        activity.findViewById(R.id.fr)
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
@@ -32,6 +36,7 @@ public class FriendProfileView extends BaseView {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String friendNameStr = friendName.getText().toString();
+                    UserAccount profile = activity.getProfile();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist.");
@@ -44,18 +49,22 @@ public class FriendProfileView extends BaseView {
                     } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You cannot add yourself.");
-                    } else {
-                        UserAccount profile = activity.getProfile();
+                    } else if (profile.pendingRequests.contains(friendNameStr)) {
+                        friendName.setText("");
+                        friendName.setError("You already have a pending friend request to " + friendNameStr + ".");
+                    }
+                    else {
                         String profileName = profile.getUsername();
-                        profile.addFriend(friendNameStr);
+                        profile.pendingRequests.add(friendNameStr);
+
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
                         activity.getDatabase().storeUser(friendProfile);
 
                         if (friendProfile != null) {
-                            friendProfile.addFriend(profileName);
-                            activity.getDatabase().setValue(profile.getFriends(), "users", profileName, "friends");
-                            activity.getDatabase().setValue(friendProfile.getFriends(), "users", friendNameStr, "friends");
+                            friendProfile.friendRequests.add(profileName);
+                            activity.getDatabase().setValue(profile.pendingRequests, "users", profileName, "pendingRequests");
+                            activity.getDatabase().setValue(friendProfile.friendRequests, "users", friendNameStr, "friendRequests");
                         }
                     }
                 }
@@ -79,7 +88,7 @@ public class FriendProfileView extends BaseView {
         }
 
         TextView friends = activity.findViewById(R.id.Friends);
-        friends.setText("Friends: " + activity.getProfile().getFriends().size());
+        friends.setText(String.format(Locale.ENGLISH, "Friends: %d", activity.getProfile().getFriends().size()));
 
     }
 
