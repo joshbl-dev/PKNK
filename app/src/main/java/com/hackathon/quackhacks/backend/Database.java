@@ -15,7 +15,7 @@ public class Database {
         return database.getReference();
     }
 
-    public void setValue(String value, Object key) {
-        getReference().setValue(value, key);
+    public void setValue(String node, String value, Object key) {
+        getReference().child(node).child(value).setValue(key);
     }
 }
