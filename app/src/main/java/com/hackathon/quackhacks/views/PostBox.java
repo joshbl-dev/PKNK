@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -56,9 +57,21 @@ public class PostBox extends BaseView {
             deleteBtn.setOnClickListener(onclick -> delete(creator, recipe));
         }
 
+        layout.findViewById(R.id.shareBtn).setOnClickListener(onClick -> share());
+
         LinearLayout linear = activity.findViewById(layoutID);
         layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> activity.changeView(new RecipeView(activity, recipe)));
         linear.addView(layout);
+    }
+
+    private void share() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        activity.startActivity(shareIntent);
     }
 
     private void delete(String user, Recipe recipe) {

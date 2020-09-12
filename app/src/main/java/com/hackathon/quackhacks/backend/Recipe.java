@@ -1,5 +1,7 @@
 package com.hackathon.quackhacks.backend;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
@@ -73,6 +75,24 @@ public class Recipe implements Comparable<Recipe> {
             quantities.remove(index);
             units.remove(index);
         }
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Checkout my newest recipe on PKNK: ").append(title).append("\n\n");
+        stringBuilder.append(nationality).append(" | ").append(type).append("\n\n");
+        stringBuilder.append("");
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            stringBuilder.append((i + 1)).append(". ").append(ingredients.get(i)).append(" [Amt: ").append(quantities.get(i)).append(";").append(units.get(i)).append("]\n");
+        }
+        stringBuilder.append("\nDirections:\n");
+        stringBuilder.append(description);
+        return stringBuilder.toString();
     }
 
     @Override

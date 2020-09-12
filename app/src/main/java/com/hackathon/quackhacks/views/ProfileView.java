@@ -8,9 +8,6 @@ import android.widget.TextView;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
-import java.util.Map;
-import java.util.Set;
-
 public class ProfileView extends BaseView {
 
     public ProfileView(Context context) {
@@ -19,9 +16,6 @@ public class ProfileView extends BaseView {
 
         TextView enterUser = activity.findViewById(R.id.enterUser);
         enterUser.setText(activity.getProfile().getUsername());
-
-        Map<String, Recipe> recMap = activity.getProfile().getRecipes();
-        Set<String> names = recMap.keySet();
 
         for (Recipe recipe : activity.getProfile().getRecipes().values()) {
             new PostBox(activity, this, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
