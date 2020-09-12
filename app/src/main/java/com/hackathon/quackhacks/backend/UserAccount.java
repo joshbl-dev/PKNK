@@ -14,7 +14,7 @@ public class UserAccount {
     private String username;
     public String password;
 
-    public List<String> friends = new ArrayList<String>();
+    public List<String> friends = new ArrayList<>();
 
     public Map<String, Recipe> recipes = new HashMap<>();
 
@@ -25,6 +25,9 @@ public class UserAccount {
         this.email = email;
         this.username = username;
         this.password = password;
+
+        friends.add("Fake friend");
+        recipes.put("pizza?", new Recipe());
 
         activity.getDatabase().setValue("users", username, this);
     }

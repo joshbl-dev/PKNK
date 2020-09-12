@@ -19,6 +19,8 @@ public class Recipe implements Comparable<Recipe> {
     public long timestamp;
 
     public Recipe() {
+        title = "default";
+        timestamp = System.currentTimeMillis();
     }
 
     public Recipe(MainActivity activity, String title, String description, String nationality, String type) {
