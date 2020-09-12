@@ -8,12 +8,6 @@ import android.widget.TextView;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import static java.lang.Integer.parseInt;
 
 public class AdjustRecipe extends BaseView {
@@ -84,16 +78,10 @@ public class AdjustRecipe extends BaseView {
             }
 
             activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
-<<<<<<< Updated upstream
             //Following line should be redundent, however for some reason the addResDesc was not triggering addDesc as well.
             recipe.addDesc(description.getText().toString(), instructions.getText().toString());
 
             activity.changeView(new FeedView(context));
-
-=======
-
-            activity.changeView(new FeedView(context));
->>>>>>> Stashed changes
         });
 
 
