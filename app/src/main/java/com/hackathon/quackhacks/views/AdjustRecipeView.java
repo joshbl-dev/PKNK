@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -49,8 +50,9 @@ public class AdjustRecipeView extends BaseView {
 
                 TextView textView1 = new TextView(activity);
                 recMap.put(ingredient.getText().toString(), textView1);
-                textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT));
+                textView1.setGravity(Gravity.CENTER);
                 textView1.setText(String.format("%s %s(s) of %s", quantity.getText().toString(), unit.getText().toString(), ingredient.getText().toString()));
                 textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
                 textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
