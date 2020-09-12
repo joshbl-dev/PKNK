@@ -15,8 +15,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
-import java.io.BufferedWriter;
-
 public class FriendProfileView extends BaseView {
 
     public FriendProfileView(Context context) {
@@ -43,7 +41,7 @@ public class FriendProfileView extends BaseView {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist. Loser");
                     }
-                    else if(activity.getProfile().getFriends().contains(friendName)){
+                    else if(activity.getProfile().getFriends().contains(friendNameStr)){
                         friendName.setText("");
                         friendName.setError("You already have this friend! Mr. Popular...");
                     }
@@ -72,7 +70,7 @@ public class FriendProfileView extends BaseView {
         });
 
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener( onclick -> {
-            activity.setContentView(new FeedView(context));
+            activity.changeView(new FeedView(activity));
         });
 
 

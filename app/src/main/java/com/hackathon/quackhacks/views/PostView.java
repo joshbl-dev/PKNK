@@ -15,7 +15,7 @@ public class PostView extends BaseView {
         activity.findViewById(R.id.createRecipe).setOnClickListener( onclick -> {
             String recipeName = activity.findViewById(R.id.recipeTitle).toString();
             String nationality = activity.findViewById(R.id.nationality).toString();
-            String type = activity.findViewById(R.id.typeSpin).toString();
+            String type = activity.findViewById(R.id.insertType).toString();
 
             activity.getProfile().addRecipe((MainActivity)context, recipeName, new Recipe((MainActivity)context, recipeName, nationality, type));
 

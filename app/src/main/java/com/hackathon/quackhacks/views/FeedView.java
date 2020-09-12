@@ -59,11 +59,13 @@ public class FeedView extends BaseView {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (String friend : activity.getProfile().getFriends()) {
-                    if (snapshot.hasChild(friend)) {
-                        UserAccount friendAcc = snapshot.child(friend).getValue(UserAccount.class);
-                        if (friendAcc != null) {
-                            for (Recipe value : friendAcc.recipes.values()) {
-                                addPost(friend, value);
+                    if (friend != null) {
+                        if (snapshot.hasChild(friend)) {
+                            UserAccount friendAcc = snapshot.child(friend).getValue(UserAccount.class);
+                            if (friendAcc != null) {
+                                for (Recipe value : friendAcc.recipes.values()) {
+                                    addPost(friend, value);
+                                }
                             }
                         }
                     }
