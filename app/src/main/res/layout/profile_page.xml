@@ -43,7 +43,7 @@
         android:layout_marginTop="37dp"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:hint="Enter New Username"
+        android:text=""
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
