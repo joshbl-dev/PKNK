@@ -36,12 +36,21 @@ public class FeedView extends BaseView {
             activity.changeView(new ProfileView(context));
         });
 
+        activity.findViewById(R.id.reloadBtn).setOnClickListener(onclick -> {
+            reload();
+        });
+
 //        Spinner friendNames = activity.findViewById(R.id.typeSpin);
 //        List<String> temp = activity.getProfile().getFriends();
 //        temp.add("No Friends Yet!");
 //        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.feed, temp);
 //        friendNames.setAdapter(adapter);
 
+        reload();
+    }
+
+    private void reload() {
+        ((LinearLayout) activity.findViewById(R.id.postsLayout)).removeAllViewsInLayout();
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef = rootRef.child("users");
@@ -66,11 +75,9 @@ public class FeedView extends BaseView {
 
             }
         });
-
-
     }
 
-    public void addPost(String user, Recipe recipe) {
+    private void addPost(String user, Recipe recipe) {
         LayoutInflater inflater = LayoutInflater.from(activity);
         ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.post_box, null, false);
 
