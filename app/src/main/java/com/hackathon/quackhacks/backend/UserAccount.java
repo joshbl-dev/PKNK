@@ -32,9 +32,6 @@ public class UserAccount {
         this.username = username;
         this.password = password;
 
-        friends.add("Fake friend");
-        recipes.put("pizza?", new Recipe());
-
         Database database = activity.getDatabase();
         database.setValue("users", username, this);
 

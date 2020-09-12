@@ -32,15 +32,13 @@ public class Database {
         return users.get(user);
     }
 
-    public boolean storeUser(UserAccount userAccount) {
+    public void storeUser(UserAccount userAccount) {
         if (userAccount != null) {
             String name = userAccount.getUsername();
             if (!users.containsKey(name)) {
                 users.put(name, userAccount);
-                return true;
             }
         }
-        return false;
     }
 
     public void setValue(Object key, String... nodes) {
