@@ -37,7 +37,7 @@ public class RecipeView extends BaseView {
 
         for(int i = 0; i < ing.size(); i++)
         {
-            temp += ing.get(i) + " " + qua.get(i) + " " + uni.get(i)+"\n";
+            temp += qua.get(i) + " " + uni.get(i) + "(s) of " + ing.get(i)+"\n";
         }
         ingredients.setText(temp);
         activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
