@@ -23,9 +23,7 @@ public class FriendProfileView extends BaseView {
         super(context);
         activity.setContentView(R.layout.friend_profile);
 
-        activity.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> {
-
-        });
+        activity.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> activity.changeView(new FriendRequestView(activity)));
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
