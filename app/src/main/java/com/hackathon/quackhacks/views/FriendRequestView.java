@@ -5,8 +5,14 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
@@ -30,7 +36,7 @@ public class FriendRequestView extends BaseView {
             LinearLayout linear = activity.findViewById(R.id.requests);
             ((TextView) layout.findViewById(R.id.friendReqName)).setText(friendRequest);
             layout.findViewById(R.id.acceptbtn).setOnClickListener(onclick -> accept(friendRequest));
-            layout.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> reject(friendRequest));
+            layout.findViewById(R.id.rejectBtn).setOnClickListener(onclick -> reject(friendRequest));
             linear.addView(layout);
         }
 
@@ -47,16 +53,41 @@ public class FriendRequestView extends BaseView {
     }
 
     private void accept(String friendRequest) {
-        user.friendRequests.remove(friendRequest);
         user.addFriend(friendRequest);
-
-        UserAccount friend = activity.getDatabase().getUser(friendRequest);
+        user.friendRequests.remove(friendRequest);
 
         String username = user.getUsername();
-        friend.friendsPending.remove(username);
-        friend.addFriend(username);
+        UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-        save(friend);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef = rootRef.child("users");
+
+        if (friend == null) {
+            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(friendRequest)) {
+                        activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
+
+                        UserAccount friend = activity.getDatabase().getUser(friendRequest);
+
+                        friend.friendsPending.remove(username);
+                        friend.addFriend(username);
+
+                        save(friend);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            friend.friendsPending.remove(username);
+            save(friend);
+        }
+
         save(user);
     }
 
@@ -65,10 +96,35 @@ public class FriendRequestView extends BaseView {
 
         UserAccount friend = activity.getDatabase().getUser(friendRequest);
 
-        String username = user.getUsername();
-        friend.friendsPending.remove(username);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef = rootRef.child("users");
 
-        save(friend);
+        String username = user.getUsername();
+
+        if (friend == null) {
+            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(friendRequest)) {
+                        activity.getDatabase().storeUser(snapshot.child(friendRequest).getValue(UserAccount.class));
+
+                        UserAccount friend = activity.getDatabase().getUser(friendRequest);
+
+                        friend.friendsPending.remove(username);
+
+                        save(friend);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            friend.friendsPending.remove(username);
+            save(friend);
+        }
         save(user);
     }
 
