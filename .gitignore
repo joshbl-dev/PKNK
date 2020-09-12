@@ -12,3 +12,4 @@
 .gradle/checksums/
 
 build/intermediates/lint-cache/
+/.idea/
