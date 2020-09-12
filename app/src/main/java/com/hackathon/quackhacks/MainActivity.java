@@ -3,8 +3,14 @@ package com.hackathon.quackhacks;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.backend.Database;
 import com.hackathon.quackhacks.backend.UserAccount;
 
@@ -43,14 +49,28 @@ public class MainActivity extends AppCompatActivity {
             String usernameStr = username.getText().toString();
 
             if (filled) {
-                if (database.hasChild("users", usernameStr)) {
-                    System.out.println("Has child");
-                    username.setText("");
-                    username.setError("Username taken");
-                } else {
-                    new UserAccount(this, email.getText().toString(), usernameStr, password.getText().toString());
-                    setContentView(R.layout.feed);
-                }
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                rootRef = rootRef.child("users");
+
+                MainActivity currentActivity = this;
+
+                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(usernameStr)) {
+                            username.setText("");
+                            username.setError("Username taken");
+                            return;
+                        }
+                        new UserAccount(currentActivity, email.getText().toString(), usernameStr, password.getText().toString());
+                        setContentView(R.layout.feed);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
