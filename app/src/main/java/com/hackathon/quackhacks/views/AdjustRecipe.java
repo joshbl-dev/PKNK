@@ -2,6 +2,7 @@ package com.hackathon.quackhacks.views;
 
 import android.content.Context;
 
+import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
 
 import static java.lang.Integer.parseInt;
@@ -16,7 +17,7 @@ public class AdjustRecipe extends BaseView {
             int quantity = parseInt(activity.findViewById(R.id.editTextNumber).toString());
             String unit = activity.findViewById(R.id.spinner).toString();
 
-            activity.getProfile().adjustRecipe(recipeName, ingredient, quantity, unit);
+            activity.getProfile().adjustRecipe((MainActivity) context, recipeName, ingredient, quantity, unit);
         });
     }
 }

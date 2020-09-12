@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
+import java.io.BufferedWriter;
+
 public class FriendProfileView extends BaseView {
 
     public FriendProfileView(Context context) {
@@ -23,9 +25,11 @@ public class FriendProfileView extends BaseView {
 
         activity.findViewById(R.id.addFriend).setOnClickListener( onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
+
             TextView friendsLbl = activity.findViewById(R.id.friendsLabel);
             final TextView friendsCount = activity.findViewById(R.id.friendsCounter);
             friendName.setVisibility(View.VISIBLE);
+
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef = rootRef.child("users");
 
@@ -37,7 +41,11 @@ public class FriendProfileView extends BaseView {
                     String friendNameStr = friendName.getText().toString();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
-                        friendName.setError("Username not found");
+                        friendName.setError("This friend doesn't exist. Loser");
+                    }
+                    else if(activity.getProfile().getFriends().contains(friendName)){
+                        friendName.setText("");
+                        friendName.setError("You already have this friend! Mr. Popular...");
                     }
                     else {
                         UserAccount profile = activity.getProfile();
@@ -61,6 +69,10 @@ public class FriendProfileView extends BaseView {
                 }
             });
 
+        });
+
+        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener( onclick -> {
+            activity.setContentView(new FeedView(context));
         });
 
 

@@ -46,11 +46,13 @@ public class UserAccount {
 
     public void addRecipe(MainActivity activity, String name, Recipe recipe) {
         recipes.put(name, recipe);
+        activity.getDatabase().setValue(recipes, "user", "recipes");
     }
 
-    public void adjustRecipe(String recipeName, String ingredient, int quan, String unit)
+    public void adjustRecipe(MainActivity activity, String recipeName, String ingredient, int quan, String unit)
     {
         recipes.get(recipeName).addIngredient(ingredient, quan, unit);
+        activity.getDatabase().setValue(recipes, "users", "recipes");
     }
 
     public List<String> getFriends() { return friends; }
