@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "132877088204",
+    "firebase_url": "https://sonorous-house-256912.firebaseio.com",
+    "project_id": "sonorous-house-256912",
+    "storage_bucket": "sonorous-house-256912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132877088204:android:53df1d556dacef5744d969",
+        "android_client_info": {
+          "package_name": "com.hackathon.quackhacks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132877088204-qfi2g9io740hsgbsr4uisuou7lmej20n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8fTzCbrAZ300NAvScm985DfUcEy8xXng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132877088204-qfi2g9io740hsgbsr4uisuou7lmej20n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
