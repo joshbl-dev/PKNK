@@ -7,6 +7,12 @@ import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import static java.lang.Integer.parseInt;
 
 public class AdjustRecipe extends BaseView {
@@ -47,6 +53,13 @@ public class AdjustRecipe extends BaseView {
             textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
             textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
             lay.addView(textView1);
+        });
+
+        activity.findViewById(R.id.removeIng).setOnClickListener( onclick -> {
+            EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
+            
+            activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
+            //boxList.remove(ingredient.getText().toString());
 
         });
 
