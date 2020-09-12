@@ -9,5 +9,6 @@ public class ProfileView extends BaseView {
     public ProfileView(Context context) {
         super(context);
         activity.setContentView(R.layout.profile_page);
+        
     }
 }
