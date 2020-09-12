@@ -8,9 +8,9 @@
 
     <ScrollView
         android:id="@+id/recipeView"
-        android:layout_width="411dp"
-        android:layout_height="294dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="414dp"
+        android:layout_height="389dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,29 +34,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/enterUser"
-        android:layout_width="407dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="37dp"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:hint="Enter New Username"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
-
     <TextView
         android:id="@+id/myRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="72dp"
         android:text="My Recipes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/recipeView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterUser" />
@@ -70,14 +56,30 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="42dp"
         android:layout_marginRight="42dp"
-        android:layout_marginBottom="46dp"
         android:text="Exit"
-        app:layout_constraintBottom_toTopOf="@+id/enterUser"
         app:layout_constraintEnd_toStartOf="@+id/yourProfile"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enterUser"
+        android:layout_width="409dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="28dp"
+        android:text="Username"
+        android:gravity="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/myRecipes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
