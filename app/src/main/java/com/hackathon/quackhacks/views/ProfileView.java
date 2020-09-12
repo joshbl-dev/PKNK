@@ -2,22 +2,15 @@ package com.hackathon.quackhacks.views;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-<<<<<<< Updated upstream
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-=======
 import androidx.constraintlayout.widget.ConstraintLayout;
 
->>>>>>> Stashed changes
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
