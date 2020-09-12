@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/feedScroll"
         android:layout_width="410dp"
         android:layout_height="0dp"
         android:layout_marginTop="125dp"
@@ -17,9 +17,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+                android:id="@+id/postsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
     </ScrollView>
 
     <Button
@@ -58,21 +59,36 @@
             android:id="@+id/typeSpin"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:entries="@android:array/emailAddressTypes"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-            app:layout_constraintEnd_toStartOf="@+id/apply"
+            android:layout_marginStart="130dp"
+            android:layout_marginLeft="130dp"
+            app:layout_constraintBottom_toTopOf="@+id/feedScroll"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/posting" />
+            app:layout_constraintTop_toBottomOf="@+id/posting"
+            app:layout_constraintVertical_bias="0.48" />
 
     <Button
         android:id="@+id/apply"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Apply"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toTopOf="@+id/feedScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/typeSpin"
         app:layout_constraintTop_toBottomOf="@+id/profile"
         app:layout_constraintVertical_bias="0.48" />
+
+    <Button
+        android:id="@+id/reloadBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="Reload"
+        app:layout_constraintEnd_toStartOf="@+id/typeSpin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

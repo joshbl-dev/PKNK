@@ -19,16 +19,15 @@ public class Recipe implements Comparable<Recipe> {
     public long timestamp;
 
     public Recipe() {
+        title = "default";
+        timestamp = System.currentTimeMillis();
     }
 
-    public Recipe(MainActivity activity, String title, String description, String nationality, String type) {
+    public Recipe(MainActivity activity, String title, String nationality, String type) {
         this.title = title;
-        this.description = description;
         this.nationality = nationality;
         this.type = type;
-
         timestamp = System.currentTimeMillis();
-
     }
 
     public void addIngredient(String ingredient, int quantity, String unit) {
