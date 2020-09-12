@@ -4,14 +4,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.hackathon.quackhacks.MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @IgnoreExtraProperties
 public class Recipe implements Comparable<Recipe> {
 
     public String title;
-    public ArrayList<String> ingredients;
-    public ArrayList<String> units;
-    public ArrayList<Integer> quantities;
+    public List<String> ingredients = new ArrayList<>();
+    public List<String> units = new ArrayList<>();
+    public List<Integer> quantities = new ArrayList<>();
     public String description = "None yet";
     public String nationality;
     public String type; // This represents whether it is a desert, dinner, breakfast, etc.

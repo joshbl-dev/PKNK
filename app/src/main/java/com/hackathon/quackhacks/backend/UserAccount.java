@@ -32,7 +32,9 @@ public class UserAccount {
         activity.getDatabase().setValue("users", username, this);
     }
 
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
     public void changePassword(String newPass) {
         this.password = newPass;
@@ -42,17 +44,20 @@ public class UserAccount {
         this.email = newEmail;
     }
 
-    public void addFriend(String friend) { friends.add(friend); }
+    public void addFriend(String friend) {
+        friends.add(friend);
+    }
 
     public void addRecipe(MainActivity activity, String name, Recipe recipe) {
         recipes.put(name, recipe);
     }
 
-    public void adjustRecipe(MainActivity activity, String recipeName, String ingredient, int quan, String unit)
-    {
+    public void adjustRecipe(MainActivity activity, String recipeName, String ingredient, int quan, String unit) {
         recipes.get(recipeName).addIngredient(ingredient, quan, unit);
-        activity.getDatabase().setValue(recipes, "users", "recipes");
+        activity.getDatabase().setValue(recipes, "users", username, "recipes");
     }
 
-    public List<String> getFriends() { return friends; }
+    public List<String> getFriends() {
+        return friends;
+    }
 }
