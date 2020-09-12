@@ -3,7 +3,6 @@ package com.hackathon.quackhacks.views;
 import android.content.Context;
 import android.widget.EditText;
 
-import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
 
 import static java.lang.Integer.parseInt;
@@ -18,21 +17,21 @@ public class AdjustRecipe extends BaseView {
             EditText quantity = activity.findViewById(R.id.editTextNumber);
             EditText unit = activity.findViewById(R.id.unit);
 
-            if(ingredient.toString().isEmpty())
+            if(ingredient.getText().toString().isEmpty())
             {
                 ingredient.setError("Please enter an ingredient");
             }
-            if(quantity.toString().isEmpty())
+            if(quantity.getText().toString().isEmpty())
             {
                 quantity.setError("Please enter a quantity");
             }
-            if(unit.toString().isEmpty())
+            if(unit.getText().toString().isEmpty())
             {
                 unit.setError("Please enter a unit");
             }
             
 
-            activity.getProfile().adjustRecipe((MainActivity) context, recipeName, ingredient.toString(), parseInt(quantity.toString()), unit.toString());
+            activity.getProfile().adjustRecipe(activity, recipeName, ingredient.getText().toString(), parseInt(quantity.getText().toString()), unit.getText().toString());
         });
     }
 }
