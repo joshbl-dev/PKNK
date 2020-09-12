@@ -22,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Objects.requireNonNull(getSupportActionBar()).hide();
-        
+
         changeView(new InitialView(this));
-
-
     }
 
     public void changeView(BaseView view) {
@@ -36,13 +34,12 @@ public class MainActivity extends AppCompatActivity {
         return currentView;
     }
 
-    public UserAccount getProfile()
-    {
+    public UserAccount getProfile() {
         return profile;
     }
 
-    public void setProfile(UserAccount profile)
-    {
+    public void setProfile(UserAccount profile) {
+        database.storeUser(profile);
         this.profile = profile;
     }
 

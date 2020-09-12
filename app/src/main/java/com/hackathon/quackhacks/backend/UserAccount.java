@@ -33,7 +33,9 @@ public class UserAccount {
         friends.add("Fake friend");
         recipes.put("pizza?", new Recipe());
 
-        activity.getDatabase().setValue("users", username, this);
+        Database database = activity.getDatabase();
+        database.setValue("users", username, this);
+
     }
 
     public String getUsername() {

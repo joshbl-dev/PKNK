@@ -50,6 +50,8 @@ public class FriendProfileView extends BaseView {
                         profile.addFriend(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
+                        activity.getDatabase().storeUser(friendProfile);
+
                         if (friendProfile != null) {
                             friendProfile.addFriend(profileName);
 

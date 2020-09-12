@@ -1,37 +1,15 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
 public class ProfileView extends BaseView {
-
-    private void addPost(String user, Recipe recipe) {
-        LayoutInflater inflater = LayoutInflater.from(activity);
-        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.post_box, null, false);
-
-        ((TextView) layout.findViewById(R.id.usertag_postbox)).setText(user);
-        ((TextView) layout.findViewById(R.id.timestamp_postbox)).setText(DateFormat.getDateInstance().format(new Date(recipe.timestamp)));
-        ((TextView) layout.findViewById(R.id.recipe_postbox)).setText(recipe.title);
-
-        layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> {
-            activity.changeView(new RecipeView(activity, recipe));
-        });
-
-        LinearLayout linear = activity.findViewById(R.id.linearLay);
-        linear.addView(layout);
-    }
 
     public ProfileView(Context context) {
         super(context);
@@ -43,8 +21,8 @@ public class ProfileView extends BaseView {
         Map<String, Recipe> recMap = activity.getProfile().getRecipes();
         Set<String> names = recMap.keySet();
 
-        for (String name : names) {
-            addPost(name, recMap.get(name));
+        for (Recipe recipe : activity.getProfile().getRecipes().values()) {
+            new PostBox(activity, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
         }
 
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> {
