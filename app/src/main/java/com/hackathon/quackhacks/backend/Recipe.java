@@ -29,7 +29,6 @@ public class Recipe implements Comparable<Recipe> {
 
         timestamp = System.currentTimeMillis();
 
-
     }
 
     public void addIngredient(String ingredient, int quantity, String unit) {

@@ -10,7 +10,6 @@ public abstract class BaseView extends View {
 
     public BaseView(Context context) {
         super(context);
-
         activity = (MainActivity) context;
     }
 }

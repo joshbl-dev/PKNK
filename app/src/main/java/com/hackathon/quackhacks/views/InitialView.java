@@ -57,8 +57,9 @@ public class InitialView extends BaseView {
                             username.setError("Username taken");
                             return;
                         }
-                        new UserAccount(activity, email.getText().toString(), usernameStr, password.getText().toString());
+                        activity.setProfile(new UserAccount(activity, email.getText().toString(), usernameStr, password.getText().toString()));
                         activity.setContentView(R.layout.feed);
+                        activity.changeView(new FeedView(context));
                     }
 
                     @Override
