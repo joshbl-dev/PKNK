@@ -44,5 +44,14 @@ public class UserAccount {
 
     public void addFriend(String friend) { friends.add(friend); }
 
+    public void addRecipe(MainActivity activity, String name, Recipe recipe) {
+        recipes.put(name, recipe);
+    }
+
+    public void adjustRecipe(String recipeName, String ingredient, int quan, String unit)
+    {
+        recipes.get(recipeName).addIngredient(ingredient, quan, unit);
+    }
+
     public List<String> getFriends() { return friends; }
 }
