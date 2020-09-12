@@ -32,54 +32,43 @@ public class Recipe implements Comparable<Recipe> {
         timestamp = System.currentTimeMillis();
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
 
-
-    public void addDesc(String desc, String inst)
-    {
+    public void addDesc(String desc, String inst) {
         description = desc;
         instructions = inst;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public String getInstructions()
-    {
+    public String getInstructions() {
         return instructions;
     }
 
-    public List<String> getIngredients()
-    {
+    public List<String> getIngredients() {
         List<String> ingList = new ArrayList<String>();
-        for(int i = 0; i < ingredients.size(); i++)
-        {
+        for (int i = 0; i < ingredients.size(); i++) {
             ingList.add(ingredients.get(i));
         }
         return ingList;
     }
 
-    public List<Integer> getQuantity()
-    {
+    public List<Integer> getQuantity() {
         List<Integer> ingList = new ArrayList<Integer>();
-        for(int i = 0; i < quantities.size(); i++)
-        {
+        for (int i = 0; i < quantities.size(); i++) {
             ingList.add(quantities.get(i));
         }
         return ingList;
     }
 
-    public List<String> getUnits()
-    {
+    public List<String> getUnits() {
         List<String> ingList = new ArrayList<String>();
-        for(int i = 0; i < units.size(); i++)
-        {
+        for (int i = 0; i < units.size(); i++) {
             ingList.add(units.get(i));
         }
         return ingList;
@@ -91,14 +80,14 @@ public class Recipe implements Comparable<Recipe> {
         units.add(unit);
     }
 
-    public void removeIngredient(String ingredient)
-    {
-        int a = ingredients.indexOf(ingredient);
-        ingredients.remove(a);
-        quantities.remove(a);
-        units.remove(a);
+    public void removeIngredient(String ingredient) {
+        int index = ingredients.indexOf(ingredient);
+        if (index > 0) {
+            ingredients.remove(index);
+            quantities.remove(index);
+            units.remove(index);
+        }
     }
-
 
 
     @Override
