@@ -3,6 +3,7 @@ package com.hackathon.quackhacks.views;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,10 +26,6 @@ public class FriendProfileView extends BaseView {
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
-
-            TextView friendsLbl = activity.findViewById(R.id.friendsLabel);
-            final TextView friendsCount = activity.findViewById(R.id.friendsCounter);
-            friendName.setVisibility(View.VISIBLE);
 
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef = rootRef.child("users");
@@ -60,15 +57,12 @@ public class FriendProfileView extends BaseView {
 
                         if (friendProfile != null) {
                             friendProfile.addFriend(profileName);
-
-                            friendsLbl.setVisibility(View.VISIBLE);
-                            friendsCount.setVisibility(View.VISIBLE);
-                            friendsCount.setText(String.format(Locale.ENGLISH, "%d", activity.getProfile().getFriends().size()));
                             activity.getDatabase().setValue(profile.getFriends(), "users", profileName, "friends");
                             activity.getDatabase().setValue(friendProfile.getFriends(), "users", friendNameStr, "friends");
                         }
                     }
                 }
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -78,8 +72,17 @@ public class FriendProfileView extends BaseView {
 
         });
 
-        activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
-
+        for(int i = 0; i < activity.getProfile().getFriends().size(); i++)
+        {
+            LinearLayout lay = activity.findViewById(R.id.linLa);
+            TextView textView1 = new TextView(activity);
+            textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView1.setText(activity.getProfile().getFriends().get(i));
+            textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+            textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            lay.addView(textView1);
+        }
 
     }
 

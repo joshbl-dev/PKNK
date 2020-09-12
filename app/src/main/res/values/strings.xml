@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">QuackHacks</string>
     <string-array name="nations">
-        <item>United States</item>
-        <item>United Kingdom</item>
-        <item>Italy</item>
-        <item>France</item>
+        <item>Nationality</item>
+        <item>American</item>
+        <item>British</item>
+        <item>Italian</item>
+        <item>French</item>
     </string-array>
     <string-array name="foodtype">
+        <item>Type</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Snacks</item>
         <item>Deserts</item>
+        <item>Other</item>
     </string-array>
 </resources>
