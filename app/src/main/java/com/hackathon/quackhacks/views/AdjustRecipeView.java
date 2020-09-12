@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
-import com.hackathon.quackhacks.backend.Recipe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,6 @@ public class AdjustRecipeView extends BaseView {
         super(context);
 
         activity.setContentView(R.layout.adjust_recipe);
-        Recipe recipe = new Recipe();
 
         TextView title = activity.findViewById(R.id.editTextTextPersonName);
         title.setText(recipeName);
@@ -49,7 +47,6 @@ public class AdjustRecipeView extends BaseView {
                 LinearLayout lay = activity.findViewById(R.id.lin);
 
                 TextView textView1 = new TextView(activity);
-                recMap.put(ingredient.getText().toString(), textView1);
                 textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT));
                 textView1.setGravity(Gravity.CENTER);
@@ -57,16 +54,23 @@ public class AdjustRecipeView extends BaseView {
                 textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
                 textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
                 lay.addView(textView1);
+                recMap.put(ingredient.getText().toString().toLowerCase(), textView1);
+
+
+                ingredient.setText("");
+                quantity.setText("");
+                unit.setText("");
             }
         });
 
         activity.findViewById(R.id.removeIng).setOnClickListener(onclick -> {
             EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
 
+            TextView textView = recMap.get(ingredient.getText().toString().toLowerCase());
             activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
-            //boxList.remove(ingredient.getText().toString());
 
-            TextView textView = recMap.get(ingredient.getText().toString());
+            ingredient.setText("");
+
             if (textView != null) {
                 textView.setVisibility(View.INVISIBLE);
                 textView.setHeight(0);
