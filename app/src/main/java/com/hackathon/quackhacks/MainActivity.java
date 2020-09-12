@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity currentView = new InitialView();
+        new InitialView(this);
     }
 
     public Database getDatabase() {

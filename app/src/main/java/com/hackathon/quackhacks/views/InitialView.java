@@ -16,22 +16,22 @@ import com.hackathon.quackhacks.backend.UserAccount;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitialView extends MainActivity {
+public class InitialView {
 
     private Map<String, EditText> inputs = new HashMap<>();
 
-    public InitialView() {
-        setContentView(R.layout.activity_main);
+    public InitialView(MainActivity activity) {
+        activity.setContentView(R.layout.activity_main);
 
-        EditText username = findViewById(R.id.usernameInput);
-        EditText email = findViewById(R.id.emailInput);
-        EditText password = findViewById(R.id.passwordInput);
+        EditText username = activity.findViewById(R.id.usernameInput);
+        EditText email = activity.findViewById(R.id.emailInput);
+        EditText password = activity.findViewById(R.id.passwordInput);
 
         inputs.put("email", email);
         inputs.put("username", username);
         inputs.put("password", password);
 
-        findViewById(R.id.loginBut).setOnClickListener(onclick -> {
+        activity.findViewById(R.id.loginBut).setOnClickListener(onclick -> {
             boolean filled = true;
             for (EditText value : inputs.values()) {
                 if (value.getText().toString().isEmpty()) {
@@ -47,8 +47,6 @@ public class InitialView extends MainActivity {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 rootRef = rootRef.child("users");
 
-                MainActivity currentActivity = this;
-
                 rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -57,8 +55,8 @@ public class InitialView extends MainActivity {
                             username.setError("Username taken");
                             return;
                         }
-                        new UserAccount(currentActivity, email.getText().toString(), usernameStr, password.getText().toString());
-                        setContentView(R.layout.feed);
+                        new UserAccount(activity, email.getText().toString(), usernameStr, password.getText().toString());
+                        activity.setContentView(R.layout.feed);
                     }
 
                     @Override
