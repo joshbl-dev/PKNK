@@ -41,17 +41,22 @@ public class FriendProfileView extends BaseView {
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist. Loser");
+                    } else if(friendNameStr.isEmpty()) {
+                        friendName.setText("");
+                        friendName.setError("Type something in, dingus.");
                     } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You already have this friend! Mr. Popular...");
                     } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)){
                         friendName.setText("");
-                        friendName.setError("You cannot add yourself");
+                        friendName.setError("You cannot add yourself. Loser");
                     } else {
                         UserAccount profile = activity.getProfile();
                         String profileName = profile.getUsername();
                         profile.addFriend(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+
+                        activity.getDatabase().storeUser(friendProfile);
 
                         if (friendProfile != null) {
                             friendProfile.addFriend(profileName);

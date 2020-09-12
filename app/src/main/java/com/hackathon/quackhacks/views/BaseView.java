@@ -12,4 +12,8 @@ public abstract class BaseView extends View {
         super(context);
         activity = (MainActivity) context;
     }
+
+    public void reload() {
+
+    }
 }
