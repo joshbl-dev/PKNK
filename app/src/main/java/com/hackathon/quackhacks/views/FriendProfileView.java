@@ -1,7 +1,9 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -20,9 +22,12 @@ public class FriendProfileView extends BaseView {
 
         activity.findViewById(R.id.addFriend).setOnClickListener( onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
-
+            TextView friendsLbl = activity.findViewById(R.id.friendsLabel);
+            final TextView friendsCount = activity.findViewById(R.id.friendsCounter);
+            friendName.setVisibility(View.VISIBLE);
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             rootRef = rootRef.child("users");
+
 
             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -34,6 +39,9 @@ public class FriendProfileView extends BaseView {
                     }
                     else {
                         activity.getProfile().addFriend(friendName.toString());
+                        friendsLbl.setVisibility(View.VISIBLE);
+                        friendsCount.setVisibility(View.VISIBLE);
+                        friendsCount.setText(Integer.toString(activity.getProfile().getFriends().size()));
                     }
                 }
 
