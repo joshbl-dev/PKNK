@@ -80,15 +80,16 @@ public class AdjustRecipeView extends BaseView {
             if (instructions.getText().toString().isEmpty()) {
                 instructions.setError("Please enter instructions");
             }
-            if (description.getText().toString().isEmpty()) {
+            else if (description.getText().toString().isEmpty()) {
                 instructions.setError("Please enter a description");
             }
+            else {
+                activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
+                recipe.addDesc(description.getText().toString(), instructions.getText().toString());
+                activity.changeView(new FeedView(context));
+            }
 
-            activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
-            //Following line should be redundant, however for some reason the addResDesc was not triggering addDesc as well.
-            recipe.addDesc(description.getText().toString(), instructions.getText().toString());
 
-            activity.changeView(new FeedView(context));
         });
 
 
