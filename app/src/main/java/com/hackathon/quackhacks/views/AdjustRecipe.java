@@ -65,6 +65,7 @@ public class AdjustRecipe extends BaseView {
             //boxList.remove(ingredient.getText().toString());
 
             recMap.get(ingredient.getText().toString()).setVisibility(View.INVISIBLE);
+            recMap.get(ingredient.getText().toString()).setHeight(0);
 
         });
 
