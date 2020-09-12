@@ -85,7 +85,8 @@ public class AdjustRecipeView extends BaseView {
             }
             else {
                 activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
-                recipe.addDesc(description.getText().toString(), instructions.getText().toString());
+                //recipe.addDesc(description.getText().toString(), instructions.getText().toString());
+                //activity.getDatabase().setValue(activity.getProfile().getRecipes(), "user", activity.getProfile().getUsername(), "recipes");
                 activity.changeView(new FeedView(context));
             }
 
