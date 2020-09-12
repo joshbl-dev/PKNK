@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">QuackHacks</string>
+    <string-array name="nations">
+        <item>United States</item>
+        <item>United Kingdom</item>
+        <item>Italy</item>
+        <item>France</item>
+    </string-array>
 </resources>
