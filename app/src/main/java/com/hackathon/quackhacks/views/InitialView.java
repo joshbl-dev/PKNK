@@ -1,7 +1,6 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -11,21 +10,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitialView extends View {
+public class InitialView extends BaseView {
 
     private Map<String, EditText> inputs = new HashMap<>();
 
     public InitialView(Context context) {
         super(context);
 
-        MainActivity activity = (MainActivity) context;
         activity.setContentView(R.layout.activity_main);
 
         EditText username = activity.findViewById(R.id.usernameInput);
