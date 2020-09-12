@@ -1,3 +1,5 @@
+package com.hackathon.quackhacks;
+
 public class UserAccount {
     private String email;
     private String username;
