@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
+import com.hackathon.quackhacks.backend.Recipe;
 
 import org.w3c.dom.Text;
 
@@ -19,6 +20,7 @@ public class AdjustRecipe extends BaseView {
     public AdjustRecipe(Context context, String recipeName) {
         super(context);
         activity.setContentView(R.layout.adjust_recipe);
+        Recipe recipe = new Recipe();
 
         TextView title = activity.findViewById(R.id.editTextTextPersonName);
         title.setText(recipeName);
@@ -32,27 +34,28 @@ public class AdjustRecipe extends BaseView {
             {
                 ingredient.setError("Please enter an ingredient");
             }
-            if(quantity.getText().toString().isEmpty())
+            else if(quantity.getText().toString().isEmpty())
             {
                 quantity.setError("Please enter a quantity");
             }
-            if(unit.getText().toString().isEmpty())
+            else if(unit.getText().toString().isEmpty())
             {
                 unit.setError("Please enter a unit");
             }
 
+            else {
+                activity.getProfile().adjustRecipe(activity, recipeName, ingredient.getText().toString(), parseInt(quantity.getText().toString()), unit.getText().toString());
 
-            activity.getProfile().adjustRecipe(activity, recipeName, ingredient.getText().toString(), parseInt(quantity.getText().toString()), unit.getText().toString());
+                LinearLayout lay = activity.findViewById(R.id.lin);
 
-            LinearLayout lay = activity.findViewById(R.id.lin);
-
-            TextView textView1 = new TextView(activity);
-            textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            textView1.setText(quantity.getText().toString() + " " + unit.getText().toString() + "(s) of " + ingredient.getText().toString());
-            textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-            textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-            lay.addView(textView1);
+                TextView textView1 = new TextView(activity);
+                textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                textView1.setText(quantity.getText().toString() + " " + unit.getText().toString() + "(s) of " + ingredient.getText().toString());
+                textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+                textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+                lay.addView(textView1);
+            }
         });
 
         activity.findViewById(R.id.removeIng).setOnClickListener( onclick -> {
@@ -81,6 +84,11 @@ public class AdjustRecipe extends BaseView {
             }
 
             activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
+            //Following line should be redundent, however for some reason the addResDesc was not triggering addDesc as well.
+            recipe.addDesc(description.getText().toString(), instructions.getText().toString());
+
+            activity.changeView(new FeedView(context));
+
         });
 
 

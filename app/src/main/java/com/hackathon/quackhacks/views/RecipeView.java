@@ -25,17 +25,21 @@ public class RecipeView extends BaseView {
         TextView description = activity.findViewById(R.id.description);
         description.setText(recipe.getDescription());
 
+        TextView instructions = activity.findViewById(R.id.instuctions);
+        instructions.setText(recipe.getInstructions());
+
         TextView ingredients = activity.findViewById(R.id.ingredients);
         List<String> ing = recipe.getIngredients();
+        List<Integer> qua = recipe.getQuantity();
+        List<String> uni = recipe.getUnits();
 
         String temp = "";
 
         for(int i = 0; i < ing.size(); i++)
         {
-            temp += ing.get(i) + "\n";
+            temp += ing.get(i) + " " + qua.get(i) + " " + uni.get(i)+"\n";
         }
         ingredients.setText(temp);
-
         activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
             activity.changeView(new FeedView(context));
         });

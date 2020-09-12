@@ -37,9 +37,22 @@ public class Recipe implements Comparable<Recipe> {
         return title;
     }
 
+
+
+    public void addDesc(String desc, String inst)
+    {
+        description = desc;
+        instructions = inst;
+    }
+
     public String getDescription()
     {
         return description;
+    }
+
+    public String getInstructions()
+    {
+        return instructions;
     }
 
     public List<String> getIngredients()
@@ -48,6 +61,26 @@ public class Recipe implements Comparable<Recipe> {
         for(int i = 0; i < ingredients.size(); i++)
         {
             ingList.add(ingredients.get(i));
+        }
+        return ingList;
+    }
+
+    public List<Integer> getQuantity()
+    {
+        List<Integer> ingList = new ArrayList<Integer>();
+        for(int i = 0; i < quantities.size(); i++)
+        {
+            ingList.add(quantities.get(i));
+        }
+        return ingList;
+    }
+
+    public List<String> getUnits()
+    {
+        List<String> ingList = new ArrayList<String>();
+        for(int i = 0; i < units.size(); i++)
+        {
+            ingList.add(units.get(i));
         }
         return ingList;
     }
@@ -66,11 +99,7 @@ public class Recipe implements Comparable<Recipe> {
         units.remove(a);
     }
 
-    public void addDesc(String desc, String inst)
-    {
-        description = desc;
-        instructions = inst;
-    }
+
 
     @Override
     public int compareTo(Recipe r) {
