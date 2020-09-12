@@ -46,7 +46,7 @@ public class FriendProfileView extends BaseView {
                         friendName.setError("You already have this friend! Mr. Popular...");
                     } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)){
                         friendName.setText("");
-                        friendName.setError("You cannot add yourself");
+                        friendName.setError("You cannot add yourself. Loser");
                     } else {
                         UserAccount profile = activity.getProfile();
                         String profileName = profile.getUsername();
