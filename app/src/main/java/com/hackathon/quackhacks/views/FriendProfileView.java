@@ -60,7 +60,7 @@ public class FriendProfileView extends BaseView {
                         profile.friendsPending.add(friendNameStr);
                         UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
-                        friendName.setText("Request Sent");
+                        friendName.setHint("Request Sent");
 
                         friendRemove.setEnabled(true);
 
