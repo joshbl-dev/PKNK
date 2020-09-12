@@ -20,7 +20,6 @@ public class InitialView extends BaseView {
 
     private Map<String, EditText> inputs = new HashMap<>();
     private EditText username;
-    private EditText email;
     private EditText password;
 
     public InitialView(Context context) {
@@ -29,16 +28,16 @@ public class InitialView extends BaseView {
         activity.setContentView(R.layout.activity_main);
 
         username = activity.findViewById(R.id.usernameInput);
-        email = activity.findViewById(R.id.emailInput);
         password = activity.findViewById(R.id.passwordInput);
 
-        inputs.put("email", email);
         inputs.put("username", username);
         inputs.put("password", password);
+
         activity.findViewById(R.id.createAccountbutton).setOnClickListener(onclick -> signup());
+        activity.findViewById(R.id.loginBut).setOnClickListener(onclick -> login());
     }
 
-    public void signup() {
+    public void login() {
         boolean filled = true;
         for (EditText value : inputs.values()) {
             if (value.getText().toString().isEmpty()) {
@@ -57,13 +56,18 @@ public class InitialView extends BaseView {
             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(usernameStr)) {
+                    Object pwd;
+                    if (!snapshot.hasChild(usernameStr)) {
                         username.setText("");
-                        username.setError("Username taken");
-                        return;
+                        username.setError("Username not found");
+                    } else if ((pwd = snapshot.child(usernameStr).child("password").getValue()) != null && pwd.equals(password)) {
+                        activity.setProfile((UserAccount) snapshot.child(usernameStr).getValue());
+                        activity.changeView(new FeedView(activity));
+
+                    } else {
+                        username.setText("");
+                        username.setError("Password invalid");
                     }
-                    activity.setProfile(new UserAccount(activity, email.getText().toString(), usernameStr, password.getText().toString()));
-                    activity.changeView(new FeedView(activity));
                 }
 
                 @Override
@@ -72,5 +76,9 @@ public class InitialView extends BaseView {
                 }
             });
         }
+    }
+
+    public void signup() {
+        activity.changeView(new SignupView(activity));
     }
 }

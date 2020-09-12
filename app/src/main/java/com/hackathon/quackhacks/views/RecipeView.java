@@ -11,6 +11,5 @@ public class RecipeView extends BaseView {
         super(context);
         activity.setContentView(R.layout.recipedisplay);
         TextView recipeTitle = activity.findViewById(R.id.recipetitle);
-
     }
 }
