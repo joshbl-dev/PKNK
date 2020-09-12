@@ -90,6 +90,12 @@ public class Recipe implements Comparable<Recipe> {
     }
 
 
+
+    public String getInstructions()
+    {
+        return instructions;
+    }
+
     @Override
     public int compareTo(Recipe r) {
         return Long.compare(timestamp, r.timestamp);

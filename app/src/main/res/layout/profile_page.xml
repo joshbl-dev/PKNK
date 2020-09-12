@@ -8,8 +8,8 @@
 
     <ScrollView
         android:id="@+id/recipeView"
-        android:layout_width="414dp"
-        android:layout_height="389dp"
+        android:layout_width="415dp"
+        android:layout_height="412dp"
         android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -17,6 +17,7 @@
         app:layout_constraintTop_toBottomOf="@+id/myRecipes">
 
         <LinearLayout
+            android:id="@+id/linearLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -38,14 +39,12 @@
         android:id="@+id/myRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:layout_marginBottom="72dp"
         android:text="My Recipes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/recipeView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterUser" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ExitSelfProfile"

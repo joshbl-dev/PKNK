@@ -60,7 +60,7 @@ public class AdjustRecipe extends BaseView {
 
         activity.findViewById(R.id.removeIng).setOnClickListener( onclick -> {
             EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
-            
+
             activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
             //boxList.remove(ingredient.getText().toString());
 
@@ -84,11 +84,16 @@ public class AdjustRecipe extends BaseView {
             }
 
             activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
+<<<<<<< Updated upstream
             //Following line should be redundent, however for some reason the addResDesc was not triggering addDesc as well.
             recipe.addDesc(description.getText().toString(), instructions.getText().toString());
 
             activity.changeView(new FeedView(context));
 
+=======
+
+            activity.changeView(new FeedView(context));
+>>>>>>> Stashed changes
         });
 
 
