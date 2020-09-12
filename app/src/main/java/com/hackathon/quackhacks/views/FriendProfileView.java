@@ -41,6 +41,9 @@ public class FriendProfileView extends BaseView {
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist. Loser");
+                    } else if(friendNameStr.isEmpty()) {
+                        friendName.setText("");
+                        friendName.setError("Type something in, dingus.");
                     } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("You already have this friend! Mr. Popular...");
