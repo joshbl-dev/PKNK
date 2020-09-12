@@ -18,9 +18,6 @@ public class UserAccount {
 
     public Map<String, Recipe> recipes = new HashMap<>();
 
-    public List<String> friendRequests = new ArrayList<>();
-    public List<String> pendingRequests = new ArrayList<>();
-
     public UserAccount() {
     }
 

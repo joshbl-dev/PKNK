@@ -22,36 +22,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/friendName"
-            android:layout_width="148dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Friend Name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/friendsTxt" />
+        android:id="@+id/friendName"
+        android:layout_width="148dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="Friend Name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-            android:id="@+id/friendscroll"
-            android:layout_width="411dp"
-            android:layout_height="526dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6">
+        android:id="@+id/friendscroll"
+        android:layout_width="411dp"
+        android:layout_height="526dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Friends">
 
         <LinearLayout
-                android:id="@+id/linLa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+            android:id="@+id/linLa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
     </ScrollView>
 
     <EditText
