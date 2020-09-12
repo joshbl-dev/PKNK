@@ -1,7 +1,6 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,8 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
-
-import java.util.Locale;
 
 public class FriendProfileView extends BaseView {
 
@@ -37,16 +34,16 @@ public class FriendProfileView extends BaseView {
                     String friendNameStr = friendName.getText().toString();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
-                        friendName.setError("This friend doesn't exist. Loser");
+                        friendName.setError("This friend doesn't exist.");
                     } else if(friendNameStr.isEmpty()) {
                         friendName.setText("");
-                        friendName.setError("Type something in, dingus.");
+                        friendName.setError("Insert name here.");
                     } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
                         friendName.setText("");
-                        friendName.setError("You already have this friend! Mr. Popular...");
+                        friendName.setError("You already have this friend!");
                     } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)){
                         friendName.setText("");
-                        friendName.setError("You cannot add yourself. Loser");
+                        friendName.setError("You cannot add yourself.");
                     } else {
                         UserAccount profile = activity.getProfile();
                         String profileName = profile.getUsername();
