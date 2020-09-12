@@ -23,7 +23,9 @@ public class FriendProfileView extends BaseView {
         super(context);
         activity.setContentView(R.layout.friend_profile);
 
-        activity.findViewById(R.id.fr)
+        activity.findViewById(R.id.reloadBtn).setOnClickListener(onclick -> {
+            
+        });
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
             EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
@@ -87,7 +89,7 @@ public class FriendProfileView extends BaseView {
             lay.addView(textView);
         }
 
-        TextView friends = activity.findViewById(R.id.Friends);
+        TextView friends = activity.findViewById(R.id.friendsTxt);
         friends.setText(String.format(Locale.ENGLISH, "Friends: %d", activity.getProfile().getFriends().size()));
 
     }
