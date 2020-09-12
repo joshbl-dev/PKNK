@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
@@ -22,16 +23,20 @@ public class ProfileView extends BaseView {
         Set<String> names = recMap.keySet();
 
         for (Recipe recipe : activity.getProfile().getRecipes().values()) {
-            new PostBox(activity, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
+            new PostBox(activity, this, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
         }
 
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> {
             activity.changeView(new FeedView(context));
         });
-        /*An attempt
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef = rootRef.child("users");
-        */
+    }
+
+    @Override
+    public void reload() {
+        ((LinearLayout) activity.findViewById(R.id.linearLay)).removeAllViewsInLayout();
+        for (Recipe recipe : activity.getProfile().getRecipes().values()) {
+            new PostBox(activity, this, R.id.linearLay, activity.getProfile().getUsername(), recipe, true);
+        }
     }
 }
 

@@ -22,23 +22,26 @@ public class PostBox extends BaseView {
     private String creator;
     private Recipe recipe;
     private boolean owner;
+    private BaseView view;
 
     public PostBox(Context context) {
         super(context);
     }
 
-    public PostBox(Context context, int layoutID, String creator, Recipe recipe, boolean owner) {
+    public PostBox(Context context, BaseView view, int layoutID, String creator, Recipe recipe, boolean owner) {
         super(context);
 
         this.layoutID = layoutID;
         this.creator = creator;
         this.recipe = recipe;
         this.owner = owner;
+        this.view = view;
 
         reload();
     }
 
-    private void reload() {
+    @Override
+    public void reload() {
         LayoutInflater inflater = LayoutInflater.from(activity);
         ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.post_box, null, false);
 
@@ -63,7 +66,6 @@ public class PostBox extends BaseView {
         recipes.remove(recipe.getTitle());
         activity.getDatabase().setValue(recipes, "users", user, "recipes");
 
-        ((LinearLayout) activity.findViewById(layoutID)).removeAllViewsInLayout();
-        reload();
+        view.reload();
     }
 }

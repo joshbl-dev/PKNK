@@ -35,12 +35,14 @@ public class FeedView extends BaseView {
         reload();
     }
 
-    private void reload() {
+    @Override
+    public void reload() {
         ((LinearLayout) activity.findViewById(R.id.postsLayout)).removeAllViewsInLayout();
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef = rootRef.child("users");
 
+        BaseView view = this;
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             List<Recipe> recipePosts = new ArrayList<>();
             Map<Recipe, String> recipesMap = new HashMap<>();
@@ -64,7 +66,7 @@ public class FeedView extends BaseView {
                 Collections.sort(recipePosts);
 
                 for (Recipe recipePost : recipePosts) {
-                    new PostBox(activity, R.id.postsLayout, recipesMap.get(recipePost), recipePost, false);
+                    new PostBox(activity, view, R.id.postsLayout, recipesMap.get(recipePost), recipePost, false);
                 }
             }
 
