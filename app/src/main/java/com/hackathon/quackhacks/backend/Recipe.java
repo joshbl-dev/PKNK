@@ -54,6 +54,11 @@ public class Recipe implements Comparable<Recipe> {
         return ingList;
     }
 
+    public String getInstructions()
+    {
+        return instructions;
+    }
+
     public List<Integer> getQuantity() {
         List<Integer> ingList = new ArrayList<Integer>();
         for (int i = 0; i < quantities.size(); i++) {
@@ -84,8 +89,6 @@ public class Recipe implements Comparable<Recipe> {
             units.remove(index);
         }
     }
-
-
 
     @Override
     public int compareTo(Recipe r) {
