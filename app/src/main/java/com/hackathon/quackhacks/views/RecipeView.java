@@ -36,8 +36,6 @@ public class RecipeView extends BaseView {
         }
         ingredients.setText(temp);
 
-        ingredients.setText(ingredientsStr);
-
         activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
             activity.changeView(new FeedView(context));
         });
