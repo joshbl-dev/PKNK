@@ -42,15 +42,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                    android:id="@+id/profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/reloadBtn"
-                    app:layout_constraintTop_toBottomOf="@+id/feed"
-                    app:layout_constraintVertical_bias="0.928" />
+                android:id="@+id/profile"
+                android:layout_width="138dp"
+                android:layout_height="47dp"
+                android:text="Profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/reloadBtn"
+                app:layout_constraintTop_toBottomOf="@+id/feed"
+                app:layout_constraintVertical_bias="0.928" />
 
             <Button
                     android:id="@+id/reloadBtn"
