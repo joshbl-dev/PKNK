@@ -3,11 +3,20 @@ package com.hackathon.quackhacks.backend;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.hackathon.quackhacks.MainActivity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @IgnoreExtraProperties
 public class UserAccount {
     public String email;
-    public String username;
+    private String username;
     public String password;
+
+    public List<UserAccount> friends = new ArrayList<>();
+
+    public Map<String, Recipe> recipes = new HashMap<>();
 
     public UserAccount() {
     }
