@@ -28,11 +28,13 @@ public class RecipeView extends BaseView {
         TextView ingredients = activity.findViewById(R.id.ingredients);
         List<String> ing = recipe.getIngredients();
 
-        String ingredientsStr = "";
+        String temp = "";
+
         for(int i = 0; i < ing.size(); i++)
         {
-            ingredientsStr += ing.indexOf(i) + "\n";
+            temp += ing.get(i) + "\n";
         }
+        ingredients.setText(temp);
 
         ingredients.setText(ingredientsStr);
 

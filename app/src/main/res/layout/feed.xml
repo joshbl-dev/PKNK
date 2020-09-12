@@ -16,49 +16,73 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <Button
-                    android:id="@+id/feed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Friend Profiles"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/posting"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/feed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:text="Friend Profiles"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.939"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.155" />
 
             <Button
-                    android:id="@+id/posting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Posting"
-                    app:layout_constraintBottom_toTopOf="@+id/reloadBtn"
-                    app:layout_constraintEnd_toStartOf="@+id/profile"
-                    app:layout_constraintStart_toEndOf="@+id/feed"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/posting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:text="Posting"
+                app:layout_constraintBottom_toTopOf="@+id/reloadBtn"
+                app:layout_constraintEnd_toStartOf="@+id/feed"
+                app:layout_constraintHorizontal_bias="0.28"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                    android:id="@+id/profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/posting"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.834"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/feed"
+                app:layout_constraintVertical_bias="0.928" />
 
             <Button
-                    android:id="@+id/reloadBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reload"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/profile"
-                    app:layout_constraintStart_toEndOf="@+id/feed"
-                    app:layout_constraintTop_toBottomOf="@+id/posting" />
+                android:id="@+id/reloadBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Reload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/profile"
+                app:layout_constraintHorizontal_bias="0.328"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/posting" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="99dp"
+                android:layout_height="98dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.051"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555"
+                app:srcCompat="@drawable/quackhacksmain" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
