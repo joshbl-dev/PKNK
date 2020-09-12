@@ -14,7 +14,7 @@ public class UserAccount {
     private String username;
     public String password;
 
-    public List<UserAccount> friends = new ArrayList<>();
+    public List<String> friends = new ArrayList<String>();
 
     public Map<String, Recipe> recipes = new HashMap<>();
 
@@ -39,7 +39,7 @@ public class UserAccount {
         this.email = newEmail;
     }
 
-    public void addFriend(UserAccount friend) { friends.add(friend); }
+    public void addFriend(String friend) { friends.add(friend); }
 
-    public List<UserAccount> getFriends() { return friends; }
+    public List<String> getFriends() { return friends; }
 }

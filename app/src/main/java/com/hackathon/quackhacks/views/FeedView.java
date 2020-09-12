@@ -7,6 +7,7 @@ import android.widget.Spinner;
 import com.hackathon.quackhacks.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FeedView extends BaseView {
 
@@ -25,13 +26,9 @@ public class FeedView extends BaseView {
             activity.changeView(new ProfileView(context));
         });
 
-        Spinner friendNames = activity.findViewById(R.id.typeSpin);
-//        friendNames.setId(R.id.typeSpin);
-        ArrayList<String> temp = new ArrayList<String>();
-        for(int i = 0; i < activity.getProfile().getFriends().size(); i++)
-        {
-            temp.add(activity.getProfile().getUsername());
-        }
+        Spinner friendNames = (Spinner) findViewById(R.id.typeSpin);
+        List<String> temp = activity.getProfile().getFriends();
+        temp.add("No Friends Yet!");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.feed, temp);
         friendNames.setAdapter(adapter);
     }
