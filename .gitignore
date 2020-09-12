@@ -13,7 +13,5 @@
 
 build/intermediates/lint-cache/
 /.idea/
-/.gradle/
-/gradle/
 
 local.properties
