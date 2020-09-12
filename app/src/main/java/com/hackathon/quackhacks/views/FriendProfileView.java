@@ -57,19 +57,23 @@ public class FriendProfileView extends BaseView {
                         friendName.setText("");
                         friendName.setError("You cannot add yourself.");
                     } else {
-                        profile.friendsPending.add(friendNameStr);
-                        UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+                        if (profile.friendsPending.contains(friendNameStr)) {
+                            friendName.setHint("Request Sent");
+                            friendName.setText("");
+                        } else {
+                            profile.friendsPending.add(friendNameStr);
+                            UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
 
-                        friendName.setHint("Request Sent");
+                            friendName.setHint("Request Sent");
+                            friendName.setText("");
 
-                        friendRemove.setEnabled(true);
+                            activity.getDatabase().storeUser(friendProfile);
 
-                        activity.getDatabase().storeUser(friendProfile);
-
-                        if (friendProfile != null) {
-                            friendProfile.friendRequests.add(profileName);
-                            activity.getDatabase().setValue(profile.friendsPending, "users", profileName, "friendsPending");
-                            activity.getDatabase().setValue(friendProfile.friendRequests, "users", friendNameStr, "friendRequests");
+                            if (friendProfile != null) {
+                                friendProfile.friendRequests.add(profileName);
+                                activity.getDatabase().setValue(profile.friendsPending, "users", profileName, "friendsPending");
+                                activity.getDatabase().setValue(friendProfile.friendRequests, "users", friendNameStr, "friendRequests");
+                            }
                         }
                     }
                 }
