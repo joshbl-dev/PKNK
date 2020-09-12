@@ -84,6 +84,9 @@ public class FriendProfileView extends BaseView {
             lay.addView(textView1);
         }
 
+        TextView friends = activity.findViewById(R.id.Friends);
+        friends.setText("Friends: " + activity.getProfile().getFriends().size());
+
     }
 
 }
