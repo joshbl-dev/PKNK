@@ -1,5 +1,7 @@
 package com.hackathon.quackhacks.views;
 
+import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -16,11 +18,14 @@ import com.hackathon.quackhacks.backend.UserAccount;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitialView {
+public class InitialView extends View {
 
     private Map<String, EditText> inputs = new HashMap<>();
 
-    public InitialView(MainActivity activity) {
+    public InitialView(Context context) {
+        super(context);
+
+        MainActivity activity = (MainActivity) context;
         activity.setContentView(R.layout.activity_main);
 
         EditText username = activity.findViewById(R.id.usernameInput);
