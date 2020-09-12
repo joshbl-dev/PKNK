@@ -21,6 +21,7 @@
         android:id="@+id/scrollView4"
         android:layout_width="411dp"
         android:layout_height="630dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
             <TextView
                 android:id="@+id/recipetitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="73dp"
                 android:text="Recipe Title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="36sp" />
@@ -42,19 +43,19 @@
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Description" />
 
             <TextView
                 android:id="@+id/ingredients"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:includeFontPadding="false" />
 
             <TextView
                 android:id="@+id/instuctions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="Instructions" />
 
         </LinearLayout>
