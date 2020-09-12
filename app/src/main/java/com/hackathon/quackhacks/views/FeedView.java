@@ -1,12 +1,9 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,13 +14,10 @@ import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 import com.hackathon.quackhacks.backend.UserAccount;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class FeedView extends BaseView {
@@ -57,6 +51,7 @@ public class FeedView extends BaseView {
                     if (friend != null) {
                         if (snapshot.hasChild(friend)) {
                             UserAccount friendAcc = snapshot.child(friend).getValue(UserAccount.class);
+                            activity.getDatabase().storeUser(friendAcc);
                             if (friendAcc != null) {
                                 for (Recipe value : friendAcc.recipes.values()) {
                                     recipePosts.add(value);
@@ -69,7 +64,7 @@ public class FeedView extends BaseView {
                 Collections.sort(recipePosts);
 
                 for (Recipe recipePost : recipePosts) {
-                    addPost(recipesMap.get(recipePost), recipePost);
+                    new PostBox(activity, R.id.postsLayout, recipesMap.get(recipePost), recipePost, false);
                 }
             }
 
@@ -79,18 +74,4 @@ public class FeedView extends BaseView {
             }
         });
     }
-
-    private void addPost(String user, Recipe recipe) {
-        LayoutInflater inflater = LayoutInflater.from(activity);
-        ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.post_box, null, false);
-
-        ((TextView) layout.findViewById(R.id.usertag_postbox)).setText(user);
-        ((TextView) layout.findViewById(R.id.timestamp_postbox)).setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH).format(new Date(recipe.timestamp)));
-        ((TextView) layout.findViewById(R.id.recipe_postbox)).setText(recipe.title);
-
-        LinearLayout linear = activity.findViewById(R.id.postsLayout);
-        layout.findViewById(R.id.view_postbox).setOnClickListener(onclick -> activity.changeView(new RecipeView(activity, recipe)));
-        linear.addView(layout);
-    }
-
 }

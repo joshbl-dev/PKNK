@@ -70,6 +70,7 @@ public class InitialView extends BaseView {
                         username.setError("Username not found");
                     } else if ((pwd = snapshot.child(usernameStr).child("password").getValue()) != null && pwd.equals(password.getText().toString())) {
                         activity.setProfile(snapshot.child(usernameStr).getValue(UserAccount.class));
+
                         activity.changeView(new FeedView(activity));
 
                     } else {
