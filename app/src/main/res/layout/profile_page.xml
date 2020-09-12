@@ -32,6 +32,20 @@
         android:hint="Enter New Username"
         android:inputType="textPersonName"
         android:textAlignment="center"
+<<<<<<< HEAD
+=======
+        app:layout_constraintEnd_toStartOf="@id/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:text="Edit"
+>>>>>>> main
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourProfile" />
@@ -48,6 +62,20 @@
         android:hint="Enter New Email"
         android:inputType="textPersonName"
         android:textAlignment="center"
+<<<<<<< HEAD
+=======
+        app:layout_constraintEnd_toStartOf="@id/edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterUser" />
+
+    <Button
+        android:id="@+id/editEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:text="Edit"
+>>>>>>> main
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterUser" />
