@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
@@ -13,11 +14,25 @@ public class AdjustRecipe extends BaseView {
         activity.setContentView(R.layout.adjust_recipe);
 
         activity.findViewById(R.id.button4).setOnClickListener( onclick -> {
-            String ingredient = activity.findViewById(R.id.editTextTextPersonName2).toString();
-            int quantity = parseInt(activity.findViewById(R.id.editTextNumber).toString());
-            String unit = activity.findViewById(R.id.spinner).toString();
+            EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
+            EditText quantity = activity.findViewById(R.id.editTextNumber);
+            EditText unit = activity.findViewById(R.id.unit);
 
-            activity.getProfile().adjustRecipe((MainActivity) context, recipeName, ingredient, quantity, unit);
+            if(ingredient.toString().isEmpty())
+            {
+                ingredient.setError("Please enter an ingredient");
+            }
+            if(quantity.toString().isEmpty())
+            {
+                quantity.setError("Please enter a quantity");
+            }
+            if(unit.toString().isEmpty())
+            {
+                unit.setError("Please enter a unit");
+            }
+            
+
+            activity.getProfile().adjustRecipe((MainActivity) context, recipeName, ingredient.toString(), parseInt(quantity.toString()), unit.toString());
         });
     }
 }

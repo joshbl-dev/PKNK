@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
@@ -13,15 +14,22 @@ public class PostView extends BaseView {
         activity.setContentView(R.layout.add_recipe_post);
 
         activity.findViewById(R.id.createRecipe).setOnClickListener( onclick -> {
-            String recipeName = activity.findViewById(R.id.recipeTitle).toString();
+            EditText recipeName = activity.findViewById(R.id.recipeTitle);
             String nationality = activity.findViewById(R.id.nationality).toString();
             String type = activity.findViewById(R.id.insertType).toString();
 
-            activity.getProfile().addRecipe((MainActivity)context, recipeName, new Recipe((MainActivity)context, recipeName, nationality, type));
+            if(recipeName.toString().isEmpty()) {
+                recipeName.setError("Recipe Name Not Found!");
+            }
 
-            activity.changeView(new AdjustRecipe(context, recipeName));
+            activity.getProfile().addRecipe(activity, recipeName.toString(), new Recipe(activity, recipeName.toString(), nationality, type));
+
+            activity.changeView(new AdjustRecipe(context, recipeName.toString()));
         });
 
+        activity.findViewById(R.id.ExitPost).setOnClickListener( onclick -> {
+            activity.changeView(new FeedView(context));
+        });
 
     }
 }

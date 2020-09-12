@@ -12,7 +12,7 @@ public class Recipe implements Comparable<Recipe> {
     public ArrayList<String> ingredients;
     public ArrayList<String> units;
     public ArrayList<Integer> quantities;
-    public String description;
+    public String description = "None yet";
     public String nationality;
     public String type; // This represents whether it is a desert, dinner, breakfast, etc.
 

@@ -6,4 +6,10 @@
         <item>Italy</item>
         <item>France</item>
     </string-array>
+    <string-array name="foodtype">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Snacks</item>
+        <item>Deserts</item>
+    </string-array>
 </resources>

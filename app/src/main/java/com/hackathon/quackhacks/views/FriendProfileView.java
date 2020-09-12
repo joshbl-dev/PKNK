@@ -70,7 +70,7 @@ public class FriendProfileView extends BaseView {
         });
 
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener( onclick -> {
-            activity.changeView(new FeedView(activity));
+            activity.changeView(new FeedView(context));
         });
 
 
