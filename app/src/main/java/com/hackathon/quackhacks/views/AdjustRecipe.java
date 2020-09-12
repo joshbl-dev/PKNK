@@ -1,6 +1,7 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,15 +9,22 @@ import android.widget.TextView;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.Integer.parseInt;
 
 public class AdjustRecipe extends BaseView {
+
+    public Map<String, TextView> recMap = new HashMap<>();
+
     public AdjustRecipe(Context context) {
         super(context);
     }
 
     public AdjustRecipe(Context context, String recipeName) {
         super(context);
+
         activity.setContentView(R.layout.adjust_recipe);
         Recipe recipe = new Recipe();
 
@@ -40,6 +48,7 @@ public class AdjustRecipe extends BaseView {
                 LinearLayout lay = activity.findViewById(R.id.lin);
 
                 TextView textView1 = new TextView(activity);
+                recMap.put(ingredient.getText().toString(), textView1);
                 textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 textView1.setText(String.format("%s %s(s) of %s", quantity.getText().toString(), unit.getText().toString(), ingredient.getText().toString()));
@@ -54,6 +63,8 @@ public class AdjustRecipe extends BaseView {
 
             activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
             //boxList.remove(ingredient.getText().toString());
+
+            recMap.get(ingredient.getText().toString()).setVisibility(View.INVISIBLE);
 
         });
 
