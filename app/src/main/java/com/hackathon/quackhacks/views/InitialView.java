@@ -35,6 +35,14 @@ public class InitialView extends BaseView {
 
         activity.findViewById(R.id.createAccountbutton).setOnClickListener(onclick -> signup());
         activity.findViewById(R.id.loginBut).setOnClickListener(onclick -> login());
+
+        setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == 66) {
+                login();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void login() {
