@@ -29,6 +29,8 @@ public class UserAccount {
         activity.getDatabase().setValue("users", username, this);
     }
 
+    public String getUsername() { return username; }
+
     public void changePassword(String newPass) {
         this.password = newPass;
     }
@@ -36,4 +38,8 @@ public class UserAccount {
     public void changeEmail(String newEmail) {
         this.email = newEmail;
     }
+
+    public void addFriend(UserAccount friend) { friends.add(friend); }
+
+    public List<UserAccount> getFriends() { return friends; }
 }

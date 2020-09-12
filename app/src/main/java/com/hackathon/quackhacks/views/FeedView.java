@@ -1,28 +1,40 @@
 package com.hackathon.quackhacks.views;
 
 import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.hackathon.quackhacks.MainActivity;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
+
+import java.util.ArrayList;
 
 public class FeedView extends BaseView {
 
 
     public FeedView(Context context) {
         super(context);
+        activity.setContentView(R.layout.feed);
+
         activity.findViewById(R.id.feed).setOnClickListener(onclick -> {
-            activity.setContentView(R.layout.friend_profile);
             activity.changeView(new FriendProfileView(context));
         });
         activity.findViewById(R.id.posting).setOnClickListener(onclick -> {
-            activity.setContentView(R.layout.add_recipe_post);
             activity.changeView(new PostView(context));
         });
         activity.findViewById(R.id.profile).setOnClickListener(onclick -> {
-            activity.setContentView(R.layout.profile_page);
             activity.changeView(new ProfileView(context));
         });
+
+        Spinner friendNames = (Spinner) findViewById(R.id.typeSpin);
+        ArrayList<String> temp = new ArrayList<String>();
+        for(int i = 0; i < activity.getProfile().getFriends().size(); i++)
+        {
+            temp.add(activity.getProfile().getUsername());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.feed, temp);
+        friendNames.setAdapter(adapter);
     }
 
 }
