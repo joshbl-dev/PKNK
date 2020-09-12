@@ -21,6 +21,11 @@ public class UserAccount {
     public UserAccount() {
     }
 
+    public Map<String, Recipe> getRecipes()
+    {
+        return recipes;
+    }
+
     public UserAccount(MainActivity activity, String email, String username, String password) {
         this.email = email;
         this.username = username;
