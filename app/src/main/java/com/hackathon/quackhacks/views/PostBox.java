@@ -39,8 +39,6 @@ public class PostBox extends BaseView {
     }
 
     private void reload() {
-        ((LinearLayout) activity.findViewById(layoutID)).removeAllViewsInLayout();
-
         LayoutInflater inflater = LayoutInflater.from(activity);
         ConstraintLayout layout = (ConstraintLayout) inflater.inflate(R.layout.post_box, null, false);
 
@@ -64,5 +62,8 @@ public class PostBox extends BaseView {
         Map<String, Recipe> recipes = activity.getDatabase().getUser(user).getRecipes();
         recipes.remove(recipe.getTitle());
         activity.getDatabase().setValue(recipes, "users", user, "recipes");
+
+        ((LinearLayout) activity.findViewById(layoutID)).removeAllViewsInLayout();
+        reload();
     }
 }
