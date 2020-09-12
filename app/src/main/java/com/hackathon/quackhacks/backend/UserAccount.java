@@ -63,6 +63,12 @@ public class UserAccount {
         activity.getDatabase().setValue(recipes, "user", username, "recipes");
     }
 
+    public void removeIng(MainActivity activity, String recipeName, String ingredient)
+    {
+        recipes.get(recipeName).removeIngredient(ingredient);
+        activity.getDatabase().setValue(recipes, "users", username, "recipes");
+    }
+
     public List<String> getFriends() {
         return friends;
     }

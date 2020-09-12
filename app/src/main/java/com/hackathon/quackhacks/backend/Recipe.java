@@ -38,6 +38,14 @@ public class Recipe implements Comparable<Recipe> {
         units.add(unit);
     }
 
+    public void removeIngredient(String ingredient)
+    {
+        int a = ingredients.indexOf(ingredient);
+        ingredients.remove(a);
+        quantities.remove(a);
+        units.remove(a);
+    }
+
     public void addDesc(String desc, String inst)
     {
         description = desc;
