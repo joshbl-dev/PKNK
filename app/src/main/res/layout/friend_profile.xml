@@ -31,38 +31,14 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName6"
+            app:layout_constraintBottom_toTopOf="@+id/inputname_profiles"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-            android:id="@+id/friendscroll"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6">
-
-        <LinearLayout
-                android:id="@+id/linLa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-            <TextView
-                    android:id="@+id/friends"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
-
     <EditText
-            android:id="@+id/editTextTextPersonName6"
+            android:id="@+id/inputname_profiles"
             android:layout_width="239dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -78,13 +54,13 @@
             app:layout_constraintTop_toBottomOf="@+id/ExitSelfProfile" />
 
     <Button
-        android:id="@+id/addFriend"
-        android:layout_width="73dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="16dp"
-        android:text="Add"
-        app:layout_constraintBottom_toTopOf="@+id/friendscroll"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6" />
+            android:id="@+id/addFriend"
+            android:layout_width="73dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="16dp"
+            android:text="Add"
+            app:layout_constraintBottom_toTopOf="@+id/friendscroll"
+            app:layout_constraintStart_toEndOf="@+id/inputname_profiles" />
 
     <Button
             android:id="@+id/requestsBtn"
@@ -98,17 +74,41 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/removeFriend"
-        android:layout_width="83dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="17dp"
-        android:visibility="invisible"
-        android:text="Remove"
-        app:layout_constraintBottom_toTopOf="@+id/friendscroll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addFriend"
-        app:layout_constraintTop_toBottomOf="@+id/requestsBtn" />
+            android:id="@+id/removeFriend"
+            android:layout_width="83dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="17dp"
+            android:text="Remove"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/friendscroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addFriend"
+            app:layout_constraintTop_toBottomOf="@+id/requestsBtn" />
+
+    <ScrollView
+            android:id="@+id/friendscroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputname_profiles">
+
+        <LinearLayout
+                android:id="@+id/linLa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <TextView
+                    android:id="@+id/friends"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView><![CDATA[
 
     =======
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,4 +118,5 @@
 >>>>>>> Stashed changes
 
 
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>

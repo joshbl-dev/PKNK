@@ -31,8 +31,7 @@ public class FriendProfileView extends BaseView {
         UserAccount profile = activity.getProfile();
         String profileName = profile.getUsername();
 
-        EditText friendName = activity.findViewById(R.id.editTextTextPersonName6);
-        String friendNameStr = friendName.getText().toString();
+        EditText friendName = activity.findViewById(R.id.inputname_profiles);
         Button friendRemove = activity.findViewById(R.id.removeFriend);
 
         activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
@@ -43,6 +42,7 @@ public class FriendProfileView extends BaseView {
             rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String friendNameStr = friendName.getText().toString();
                     if (!snapshot.hasChild(friendNameStr)) {
                         friendName.setText("");
                         friendName.setError("This friend doesn't exist.");
@@ -83,6 +83,7 @@ public class FriendProfileView extends BaseView {
 
         });
         activity.findViewById(R.id.removeFriend).setOnClickListener(onclick -> {
+            String friendNameStr = friendName.getText().toString();
             if (profile.friends.contains(friendNameStr)) {
                 profile.friends.remove(friendNameStr);
                 friendName.setText("");
@@ -120,20 +121,29 @@ public class FriendProfileView extends BaseView {
         if (profile.friends.size() > 0) {
             friendRemove.setVisibility(View.VISIBLE);
         }
+
+        reload();
     }
 
     @Override
     public void reload() {
+        ((LinearLayout) activity.findViewById(R.id.linLa)).removeAllViewsInLayout();
+        LinearLayout lay = activity.findViewById(R.id.linLa);
+
+
+        TextView textView = new TextView(activity);
+        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+        lay.addView(textView);
+
         for (int i = 0; i < activity.getProfile().getFriends().size(); i++) {
-            LinearLayout lay = activity.findViewById(R.id.linLa);
-            TextView textView = new TextView(activity);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            textView.setText(activity.getProfile().getFriends().get(i));
-            textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-            lay.addView(textView);
+            TextView friends = new TextView(activity);
+            friends.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            friends.setText(activity.getProfile().getFriends().get(i));
+            friends.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            lay.addView(friends);
         }
 
-        TextView friends = activity.findViewById(R.id.friends);
-        friends.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
+        textView.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
     }
 }
