@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hackathon.quackhacks.R;
