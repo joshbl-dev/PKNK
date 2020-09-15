@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// FeedView displays recipes from friends and is app "hub"
 public class FeedView extends BaseView {
 
     public FeedView(Context context) {
@@ -36,15 +37,16 @@ public class FeedView extends BaseView {
         reload();
     }
 
+    // Creates a Post Box for each friend's recipes ordered chronologically
     @Override
     public void reload() {
         ((LinearLayout) activity.findViewById(R.id.postsLayout)).removeAllViewsInLayout();
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        rootRef = rootRef.child("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference = reference.child("users");
 
         BaseView view = this;
-        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             List<Recipe> recipePosts = new ArrayList<>();
             Map<Recipe, String> recipesMap = new HashMap<>();
 
@@ -54,11 +56,11 @@ public class FeedView extends BaseView {
                     if (friend != null) {
                         if (snapshot.hasChild(friend)) {
                             UserAccount friendAcc = snapshot.child(friend).getValue(UserAccount.class);
-                            activity.getDatabase().storeUser(friendAcc);
                             if (friendAcc != null) {
-                                for (Recipe value : friendAcc.recipes.values()) {
-                                    recipePosts.add(value);
-                                    recipesMap.put(value, friend);
+                                activity.getDatabase().storeUser(friendAcc);
+                                for (Recipe recipe : friendAcc.getRecipes().values()) {
+                                    recipePosts.add(recipe);
+                                    recipesMap.put(recipe, friend);
                                 }
                             }
                         }

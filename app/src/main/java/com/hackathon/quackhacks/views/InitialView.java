@@ -17,6 +17,7 @@ import com.hackathon.quackhacks.backend.UserAccount;
 import java.util.HashMap;
 import java.util.Map;
 
+// Initial screen seen on app load
 public class InitialView extends BaseView {
 
     private Map<String, EditText> inputs = new HashMap<>();
@@ -60,10 +61,10 @@ public class InitialView extends BaseView {
         String usernameStr = username.getText().toString();
 
         if (filled) {
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            rootRef = rootRef.child("users");
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            reference = reference.child("users");
 
-            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Object pwd;
@@ -92,16 +93,16 @@ public class InitialView extends BaseView {
     private void saveLogin(String username, String password) {
         SharedPreferences sp = activity.getSharedPreferences("Login", Context.MODE_PRIVATE);
         SharedPreferences.Editor Ed = sp.edit();
-        Ed.putString("Unm", username);
-        Ed.putString("Psw", password);
+        Ed.putString("username", username);
+        Ed.putString("password", password);
         Ed.apply();
     }
 
     private void attemptLogin() {
         SharedPreferences sp = activity.getSharedPreferences("Login", Context.MODE_PRIVATE);
 
-        String username = sp.getString("Unm", null);
-        String password = sp.getString("Psw", null);
+        String username = sp.getString("username", null);
+        String password = sp.getString("password", null);
 
         if (username != null && password != null) {
             this.username.setText(username);

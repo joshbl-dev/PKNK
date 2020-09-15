@@ -17,9 +17,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.UserAccount;
 
+import java.util.List;
 import java.util.Locale;
 
+// View for friend list
 public class FriendProfileView extends BaseView {
+
+    private EditText friendName;
+    private Button friendRemove;
+
+    private UserAccount profile;
+    private String profileName;
 
     public FriendProfileView(Context context) {
         super(context);
@@ -28,56 +36,97 @@ public class FriendProfileView extends BaseView {
         activity.findViewById(R.id.requestsBtn).setOnClickListener(onclick -> activity.changeView(new FriendRequestView(activity)));
         activity.findViewById(R.id.ExitSelfProfile).setOnClickListener(onclick -> activity.changeView(new FeedView(activity)));
 
-        UserAccount profile = activity.getProfile();
-        String profileName = profile.getUsername();
+        profile = activity.getProfile();
+        profileName = profile.getUsername();
 
-        EditText friendName = activity.findViewById(R.id.inputname_profiles);
-        Button friendRemove = activity.findViewById(R.id.removeFriend);
+        friendName = activity.findViewById(R.id.inputname_profiles);
+        friendRemove = activity.findViewById(R.id.removeFriend);
 
-        activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> {
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            rootRef = rootRef.child("users");
+        activity.findViewById(R.id.addFriend).setOnClickListener(onclick -> sendRequest());
+
+        activity.findViewById(R.id.removeFriend).setOnClickListener(onclick -> removeFriend());
+
+        if (profile.getFriends().size() > 0) {
+            friendRemove.setEnabled(true);
+        }
+
+        reload();
+    }
+
+    // Adds friend request to profiles
+    private void sendRequest() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference = reference.child("users");
 
 
-            rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String friendNameStr = friendName.getText().toString();
-                    if (!snapshot.hasChild(friendNameStr)) {
-                        friendName.setText("");
-                        friendName.setError("This friend doesn't exist.");
-                    } else if (friendNameStr.isEmpty()) {
-                        friendName.setText("");
-                        friendName.setError("Insert name here.");
-                    } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
-                        friendName.setText("");
-                        friendName.setError("You already have this friend!");
-                        friendRemove.setVisibility(View.VISIBLE);
-                    } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)) {
-                        friendName.setText("");
-                        friendName.setError("You cannot add yourself.");
-                    } else {
-                        if (profile.friendsPending.contains(friendNameStr)) {
-                            friendName.setHint("Request Sent");
-                            friendName.setText("");
-                        } else {
-                            profile.friendsPending.add(friendNameStr);
-                            UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String friendNameStr = friendName.getText().toString();
+                if (!snapshot.hasChild(friendNameStr)) {
+                    setFriendNameError("This friend doesn't exist.");
+                } else if (friendNameStr.isEmpty()) {
+                    setFriendNameError("Insert name here.");
+                } else if (activity.getProfile().getFriends().contains(friendNameStr)) {
+                    setFriendNameError("You already have this friend!");
+                    friendRemove.setVisibility(View.VISIBLE);
+                } else if (activity.getProfile().getUsername().equalsIgnoreCase(friendNameStr)) {
+                    setFriendNameError("You cannot add yourself.");
+                } else {
+                    if (!profile.getFriendsPending().contains(friendNameStr)) {
+                        List<String> friendsPending = profile.getFriendsPending();
 
-                            friendName.setHint("Request Sent");
-                            friendName.setText("");
+                        friendsPending.add(friendNameStr);
 
+                        UserAccount friendProfile = snapshot.child(friendNameStr).getValue(UserAccount.class);
+
+                        if (friendProfile != null) {
                             activity.getDatabase().storeUser(friendProfile);
 
-                            if (friendProfile != null) {
-                                friendProfile.friendRequests.add(profileName);
-                                activity.getDatabase().setValue(profile.friendsPending, "users", profileName, "friendsPending");
-                                activity.getDatabase().setValue(friendProfile.friendRequests, "users", friendNameStr, "friendRequests");
-                            }
+                            List<String> friendRequests = friendProfile.getFriendRequests();
+                            friendRequests.add(profileName);
+
+                            activity.getDatabase().setValue(friendsPending, "users", profileName, "friendsPending");
+                            activity.getDatabase().setValue(friendRequests, "users", friendNameStr, "friendRequests");
                         }
                     }
                 }
+                friendName.setHint("Request Sent");
+                friendName.setText("");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // Removes friend from profiles
+    private void removeFriend() {
+        String friendNameStr = friendName.getText().toString();
+        List<String> friends = profile.getFriends();
+        if (friends.remove(friendNameStr)) {
+            friendName.setText("");
+            activity.getDatabase().setValue(friends, "users", profileName, "friends");
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            reference = reference.child("users");
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(friendNameStr)) {
+                        activity.getDatabase().storeUser(snapshot.child(friendNameStr).getValue(UserAccount.class));
+
+                        UserAccount friend = activity.getDatabase().getUser(friendNameStr);
+                        List<String> friendFriends = friend.getFriends();
+
+                        friendFriends.remove(profileName);
+
+                        activity.getDatabase().setValue(friendFriends, "users", friendNameStr, "friends");
+                    }
+                }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -85,69 +134,33 @@ public class FriendProfileView extends BaseView {
                 }
             });
 
-        });
-        activity.findViewById(R.id.removeFriend).setOnClickListener(onclick -> {
-            String friendNameStr = friendName.getText().toString();
-            if (profile.friends.contains(friendNameStr)) {
-                profile.friends.remove(friendNameStr);
-                friendName.setText("");
-                activity.getDatabase().setValue(profile.friends, "users", profileName, "friends");
-
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                rootRef = rootRef.child("users");
-
-                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(friendNameStr)) {
-                            activity.getDatabase().storeUser(snapshot.child(friendNameStr).getValue(UserAccount.class));
-
-                            UserAccount friend = activity.getDatabase().getUser(friendNameStr);
-
-                            friend.friends.remove(profileName);
-
-                            activity.getDatabase().setValue(friend.friends, "users", friendNameStr, "friends");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-                activity.getDatabase().setValue(profile.friends, "users", profileName, "friends");
-                reload();
-            }
-        });
-
-        if (profile.friends.size() > 0) {
-            friendRemove.setEnabled(true);
+            activity.getDatabase().setValue(friends, "users", profileName, "friends");
+            reload();
         }
+    }
 
-        reload();
+    private void setFriendNameError(String error) {
+        friendName.setError(error);
+        friendName.setText("");
     }
 
     @Override
     public void reload() {
-        ((LinearLayout) activity.findViewById(R.id.linLa)).removeAllViewsInLayout();
-        LinearLayout lay = activity.findViewById(R.id.linLa);
+        ((LinearLayout) activity.findViewById(R.id.friendList)).removeAllViewsInLayout();
+        LinearLayout friendList = activity.findViewById(R.id.friendList);
 
-
-        TextView textView = new TextView(activity);
-        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-        lay.addView(textView);
+        TextView friendCount = new TextView(activity);
+        friendCount.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        friendCount.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+        friendCount.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
+        friendList.addView(friendCount);
 
         for (int i = 0; i < activity.getProfile().getFriends().size(); i++) {
-            TextView friends = new TextView(activity);
-            friends.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            friends.setText(activity.getProfile().getFriends().get(i));
-            friends.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-            lay.addView(friends);
+            TextView friend = new TextView(activity);
+            friend.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            friend.setText(activity.getProfile().getFriends().get(i));
+            friend.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            friendList.addView(friend);
         }
-
-        textView.setText(String.format(Locale.ENGLISH, "My Friends: %d", activity.getProfile().getFriends().size()));
     }
 }

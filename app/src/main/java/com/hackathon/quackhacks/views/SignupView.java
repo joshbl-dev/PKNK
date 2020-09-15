@@ -16,6 +16,7 @@ import com.hackathon.quackhacks.backend.UserAccount;
 import java.util.HashMap;
 import java.util.Map;
 
+// View to create an account
 public class SignupView extends BaseView {
 
     private Map<String, EditText> inputs = new HashMap<>();

@@ -15,7 +15,7 @@
             app:layout_constraintTop_toBottomOf="@+id/myRecipes">
 
         <LinearLayout
-                android:id="@+id/linearLay"
+                android:id="@+id/userRecipes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />

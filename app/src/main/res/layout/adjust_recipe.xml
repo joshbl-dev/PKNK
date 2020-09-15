@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/exitBtn_adjust_recipe"
         android:layout_width="91dp"
         android:layout_height="75dp"
         android:layout_marginStart="15dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/recipeName"
         android:layout_width="259dp"
         android:layout_height="69dp"
         android:layout_marginStart="24dp"
@@ -32,11 +32,11 @@
         android:text="Recipe Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/exitBtn_adjust_recipe"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/ingredientInput"
         android:layout_width="197dp"
         android:layout_height="66dp"
         android:layout_marginStart="18dp"
@@ -49,23 +49,23 @@
         android:hint="Ingredient"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+        app:layout_constraintEnd_toStartOf="@+id/quantityInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/exitBtn_adjust_recipe" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/quantityInput"
         android:layout_width="63dp"
         android:layout_height="64dp"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Amt"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toEndOf="@+id/ingredientInput"
+        app:layout_constraintTop_toBottomOf="@+id/recipeName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/descriptionText"
         android:layout_width="376dp"
         android:layout_height="60dp"
         android:layout_marginStart="18dp"
@@ -80,10 +80,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/addIngredientBtn" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/addIngredientBtn"
         android:layout_width="190dp"
         android:layout_height="37dp"
         android:layout_marginStart="20dp"
@@ -93,14 +93,14 @@
         android:layout_marginRight="21dp"
         android:layout_marginBottom="9dp"
         android:text="Add Ingredient"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredientInput" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/saveRecipeBtn"
         android:layout_width="367dp"
         android:layout_height="46dp"
         android:layout_marginStart="23dp"
@@ -114,19 +114,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/unit"
+        android:id="@+id/unitInput"
         android:layout_width="100dp"
         android:layout_height="66dp"
         android:layout_marginTop="25dp"
         android:ems="10"
         android:hint="Units"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintBottom_toTopOf="@+id/addIngredientBtn"
+        app:layout_constraintStart_toEndOf="@+id/quantityInput"
+        app:layout_constraintTop_toBottomOf="@+id/recipeName" />
 
     <Button
-        android:id="@+id/removeIng"
+        android:id="@+id/removeIngredientBtn"
         android:layout_width="171dp"
         android:layout_height="36dp"
         android:layout_marginStart="9dp"
@@ -136,8 +136,8 @@
         android:layout_marginRight="21dp"
         android:text="Remove Ingredient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/unit" />
+        app:layout_constraintStart_toEndOf="@+id/addIngredientBtn"
+        app:layout_constraintTop_toBottomOf="@+id/unitInput" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -149,10 +149,10 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/saveRecipeBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3">
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,7 +160,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editTextTextPersonName5"
+                android:id="@+id/instructionsText"
                 android:layout_width="362dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="16dp"
@@ -185,13 +185,13 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4">
+        app:layout_constraintTop_toBottomOf="@+id/addIngredientBtn">
 
         <LinearLayout
-            android:id = "@+id/lin"
+            android:id = "@+id/ingredientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

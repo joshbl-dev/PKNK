@@ -14,6 +14,5 @@ public abstract class BaseView extends View {
     }
 
     public void reload() {
-
     }
 }

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         currentView = view;
     }
 
+    // possible future implementations
     public BaseView getCurrentView() {
         return currentView;
     }

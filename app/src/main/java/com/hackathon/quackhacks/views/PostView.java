@@ -7,6 +7,7 @@ import android.widget.Spinner;
 import com.hackathon.quackhacks.R;
 import com.hackathon.quackhacks.backend.Recipe;
 
+// View to represent a recipe post
 public class PostView extends BaseView {
 
     public PostView(Context context) {

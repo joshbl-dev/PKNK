@@ -20,6 +20,7 @@ public class UserAccount {
 
     public Map<String, Recipe> recipes = new HashMap<>();
 
+    // Used for Google Firebase
     public UserAccount() {
     }
 
@@ -41,6 +42,14 @@ public class UserAccount {
         return username;
     }
 
+    public List<String> getFriendsPending() {
+        return friendsPending;
+    }
+
+    public List<String> getFriendRequests() {
+        return friendRequests;
+    }
+
     public void addFriend(String friend) {
         friends.add(friend);
     }
@@ -49,29 +58,8 @@ public class UserAccount {
         recipes.put(name, recipe);
     }
 
-    public void adjustRecipe(MainActivity activity, String recipeName, String ingredient, int quan, String unit) {
-        Recipe recipe = recipes.get(recipeName);
-        if (recipe != null) {
-            recipe.addIngredient(ingredient, quan, unit);
-            activity.getDatabase().setValue(recipes, "users", username, "recipes");
-        }
-    }
-
-    public void addResDesc(MainActivity activity, String recipeName, String desc, String inst) {
-        Recipe recipe = recipes.get(recipeName);
-        if (recipe != null) {
-            recipe.addDesc(desc, inst);
-            activity.getDatabase().setValue(recipes, "user", username, "recipes");
-        }
-    }
-
-    public void removeIng(MainActivity activity, String recipeName, String ingredient) {
-        Recipe recipe = recipes.get(recipeName);
-        if (recipe != null) {
-            recipe.removeIngredient(ingredient);
-            activity.getDatabase().setValue(recipes, "users", username, "recipes");
-        }
-
+    public Recipe getRecipe(String name) {
+        return recipes.get(name);
     }
 
     public List<String> getFriends() {

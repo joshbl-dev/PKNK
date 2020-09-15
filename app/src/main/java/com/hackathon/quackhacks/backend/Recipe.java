@@ -1,18 +1,23 @@
 package com.hackathon.quackhacks.backend;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+// Class to represent a recipe
 @IgnoreExtraProperties
 public class Recipe implements Comparable<Recipe> {
     public String title;
-    public List<String> ingredients = new ArrayList<>();
-    public List<String> units = new ArrayList<>();
-    public List<Integer> quantities = new ArrayList<>();
+
+    public Map<String, Pair<Integer, String>> ingredients = new LinkedHashMap<>();
+
     public String description = "None yet";
     public String instructions = "None yet";
     public String nationality;
@@ -20,6 +25,7 @@ public class Recipe implements Comparable<Recipe> {
 
     public long timestamp;
 
+    // Used for Google Firebase
     public Recipe() {
         title = "default";
         timestamp = System.currentTimeMillis();
@@ -36,10 +42,12 @@ public class Recipe implements Comparable<Recipe> {
         return title;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public void addDesc(String desc, String inst) {
-        description = desc;
-        instructions = inst;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public String getDescription() {
@@ -47,37 +55,41 @@ public class Recipe implements Comparable<Recipe> {
     }
 
     public List<String> getIngredients() {
-        return ingredients;
+        return new ArrayList<>(ingredients.keySet());
     }
 
     public String getInstructions() {
         return instructions;
     }
 
-    public List<Integer> getQuantity() {
+    public List<Integer> getQuantities() {
+        List<Integer> quantities = new ArrayList<>();
+        for (Pair<Integer, String> value : ingredients.values()) {
+            quantities.add(value.first);
+        }
         return quantities;
     }
 
     public List<String> getUnits() {
+        List<String> units = new ArrayList<>();
+        for (Pair<Integer, String> value : ingredients.values()) {
+            units.add(value.second);
+        }
         return units;
     }
 
-    public void addIngredient(String ingredient, int quantity, String unit) {
-        ingredients.add(ingredient);
-        quantities.add(quantity);
-        units.add(unit);
+    public void addIngredient(Database database, String username, String ingredient, int quantity, String unit) {
+        ingredients.put(ingredient, new Pair<>(quantity, unit));
+        database.setValue(this, "users", username, "recipes", title);
     }
 
-    public void removeIngredient(String ingredient) {
-        int index = ingredients.indexOf(ingredient);
-        if (index > 0) {
-            ingredients.remove(index);
-            quantities.remove(index);
-            units.remove(index);
-        }
+    public void removeIngredient(Database database, String username, String ingredient) {
+        ingredients.remove(ingredient);
+        database.setValue(this, "users", username, "recipes", title);
     }
 
 
+    // toString method for sharing a recipe
     @NonNull
     @Override
     public String toString() {
@@ -87,9 +99,12 @@ public class Recipe implements Comparable<Recipe> {
         stringBuilder.append(nationality).append(" | ").append(type).append("\n\n");
         stringBuilder.append("");
 
-        for (int i = 0; i < ingredients.size(); i++) {
-            stringBuilder.append((i + 1)).append(". ").append(ingredients.get(i)).append(" [Amt: ").append(quantities.get(i)).append(";").append(units.get(i)).append("]\n");
+        int count = 0;
+        for (Map.Entry<String, Pair<Integer, String>> ingredient : ingredients.entrySet()) {
+            Pair<Integer, String> ingredientsData = ingredient.getValue();
+            stringBuilder.append(++count).append(". ").append(ingredient.getKey()).append(" [Amt: ").append(ingredientsData.first).append(";").append(ingredientsData.second).append("]\n");
         }
+
         stringBuilder.append("\nDirections:\n");
         stringBuilder.append(description);
         return stringBuilder.toString();

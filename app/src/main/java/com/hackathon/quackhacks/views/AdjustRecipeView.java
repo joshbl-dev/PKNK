@@ -8,15 +8,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hackathon.quackhacks.R;
+import com.hackathon.quackhacks.backend.Recipe;
+import com.hackathon.quackhacks.backend.UserAccount;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-
 public class AdjustRecipeView extends BaseView {
 
-    public Map<String, TextView> recMap = new HashMap<>();
+    public Map<String, TextView> recipeTextViews = new HashMap<>();
 
     public AdjustRecipeView(Context context) {
         super(context);
@@ -27,35 +27,42 @@ public class AdjustRecipeView extends BaseView {
 
         activity.setContentView(R.layout.adjust_recipe);
 
-        TextView title = activity.findViewById(R.id.editTextTextPersonName);
+        TextView title = activity.findViewById(R.id.recipeName);
         title.setText(recipeName);
 
-        activity.findViewById(R.id.button4).setOnClickListener(onclick -> {
-            EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
-            EditText quantity = activity.findViewById(R.id.editTextNumber);
-            EditText unit = activity.findViewById(R.id.unit);
+        // Add an ingredient
+        activity.findViewById(R.id.addIngredientBtn).setOnClickListener(onclick -> {
+            EditText ingredient = activity.findViewById(R.id.ingredientInput);
+            EditText quantity = activity.findViewById(R.id.quantityInput);
+            EditText unit = activity.findViewById(R.id.unitInput);
 
-            if (ingredient.getText().toString().isEmpty()) {
+            String ingredientStr = ingredient.getText().toString();
+            String quantityStr = quantity.getText().toString();
+            String unitStr = unit.getText().toString();
+
+
+            if (ingredientStr.isEmpty()) {
                 ingredient.setError("Please enter an ingredient");
-            } else if (quantity.getText().toString().isEmpty()) {
+            } else if (quantityStr.isEmpty()) {
                 quantity.setError("Please enter a quantity");
-            } else if (unit.getText().toString().isEmpty()) {
+            } else if (unitStr.isEmpty()) {
                 unit.setError("Please enter a unit");
             } else {
-                activity.getProfile().adjustRecipe(activity, recipeName, ingredient.getText().toString(), parseInt(quantity.getText().toString()), unit.getText().toString());
+                UserAccount user = activity.getProfile();
+                user.getRecipe(recipeName).addIngredient(activity.getDatabase(), user.getUsername(), ingredientStr, Integer.parseInt(quantityStr), unitStr);
 
-                LinearLayout lay = activity.findViewById(R.id.lin);
+                // UI addition Ingredient
+                LinearLayout ingredientList = activity.findViewById(R.id.ingredientList);
 
-                TextView textView1 = new TextView(activity);
-                textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                TextView textView = new TextView(activity);
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT));
-                textView1.setGravity(Gravity.CENTER);
-                textView1.setText(String.format("%s %s(s) of %s", quantity.getText().toString(), unit.getText().toString(), ingredient.getText().toString()));
-                textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-                textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-                lay.addView(textView1);
-                recMap.put(ingredient.getText().toString().toLowerCase(), textView1);
-
+                textView.setGravity(Gravity.CENTER);
+                textView.setText(String.format("%s %s(s) of %s", quantityStr, unitStr, ingredientStr));
+                textView.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+                textView.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+                ingredientList.addView(textView);
+                recipeTextViews.put(ingredientStr.toLowerCase(), textView);
 
                 ingredient.setText("");
                 quantity.setText("");
@@ -63,11 +70,17 @@ public class AdjustRecipeView extends BaseView {
             }
         });
 
-        activity.findViewById(R.id.removeIng).setOnClickListener(onclick -> {
-            EditText ingredient = activity.findViewById(R.id.editTextTextPersonName2);
+        // Remove ingredient
+        activity.findViewById(R.id.removeIngredientBtn).setOnClickListener(onclick -> {
+            EditText ingredient = activity.findViewById(R.id.ingredientInput);
 
-            TextView textView = recMap.get(ingredient.getText().toString().toLowerCase());
-            activity.getProfile().removeIng(activity, recipeName, ingredient.getText().toString());
+            String ingredientStr = ingredient.getText().toString();
+
+            // UI removal Ingredient
+            TextView textView = recipeTextViews.get(ingredientStr.toLowerCase());
+
+            UserAccount user = activity.getProfile();
+            user.getRecipe(recipeName).removeIngredient(activity.getDatabase(), user.getUsername(), ingredientStr);
 
             ingredient.setText("");
 
@@ -77,22 +90,31 @@ public class AdjustRecipeView extends BaseView {
             }
         });
 
-        activity.findViewById(R.id.button3).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
+        // Return to feed
+        activity.findViewById(R.id.exitBtn_adjust_recipe).setOnClickListener(onclick -> activity.changeView(new FeedView(context)));
 
-        activity.findViewById(R.id.button5).setOnClickListener(onclick -> {
-            EditText instructions = activity.findViewById(R.id.editTextTextPersonName5);
-            EditText description = activity.findViewById(R.id.editTextTextPersonName3);
+        // Save recipe
+        activity.findViewById(R.id.saveRecipeBtn).setOnClickListener(onclick -> {
+            EditText instructions = activity.findViewById(R.id.instructionsText);
+            EditText description = activity.findViewById(R.id.descriptionText);
 
-            if (instructions.getText().toString().isEmpty()) {
+            String instructionsStr = instructions.getText().toString();
+            String descriptionStr = description.getText().toString();
+
+            if (instructionsStr.isEmpty()) {
                 instructions.setError("Please enter instructions");
-            }
-            else if (description.getText().toString().isEmpty()) {
+            } else if (descriptionStr.isEmpty()) {
                 instructions.setError("Please enter a description");
-            }
-            else {
-                activity.getProfile().addResDesc(activity, recipeName, description.getText().toString(), instructions.getText().toString());
-                //recipe.addDesc(description.getText().toString(), instructions.getText().toString());
-                activity.getDatabase().setValue(activity.getProfile().getRecipes(), "users", activity.getProfile().getUsername(), "recipes");
+            } else {
+                UserAccount user = activity.getProfile();
+
+                // Alter recipe
+                Recipe recipe = user.getRecipe(recipeName);
+                recipe.setDescription(descriptionStr);
+                recipe.setInstructions(instructionsStr);
+
+                // Save recipe
+                activity.getDatabase().setValue(user.getRecipes(), "users", user.getUsername(), "recipes");
                 activity.changeView(new FeedView(context));
             }
 
