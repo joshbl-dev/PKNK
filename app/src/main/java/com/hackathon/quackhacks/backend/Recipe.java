@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.Map;
 
 // Class to represent a recipe
 @IgnoreExtraProperties
-public class Recipe implements Comparable<Recipe> {
+public class Recipe implements Comparable<Recipe>, Serializable {
     public String title;
 
-    public Map<String, Pair<Integer, String>> ingredients = new LinkedHashMap<>();
+    public Map<String, IngredientPair> ingredients = new LinkedHashMap<>();
 
     public String description = "None yet";
     public String instructions = "None yet";
@@ -54,7 +55,7 @@ public class Recipe implements Comparable<Recipe> {
         return description;
     }
 
-    public List<String> getIngredients() {
+    public List<String> ingredients() {
         return new ArrayList<>(ingredients.keySet());
     }
 
@@ -62,24 +63,24 @@ public class Recipe implements Comparable<Recipe> {
         return instructions;
     }
 
-    public List<Integer> getQuantities() {
+    public List<Integer> ingredientQuantities() {
         List<Integer> quantities = new ArrayList<>();
-        for (Pair<Integer, String> value : ingredients.values()) {
-            quantities.add(value.first);
+        for (IngredientPair value : ingredients.values()) {
+            quantities.add(value.getQuantity());
         }
         return quantities;
     }
 
-    public List<String> getUnits() {
+    public List<String> ingredientUnits() {
         List<String> units = new ArrayList<>();
-        for (Pair<Integer, String> value : ingredients.values()) {
-            units.add(value.second);
+        for (IngredientPair value : ingredients.values()) {
+            units.add(value.getUnit());
         }
         return units;
     }
 
     public void addIngredient(Database database, String username, String ingredient, int quantity, String unit) {
-        ingredients.put(ingredient, new Pair<>(quantity, unit));
+        ingredients.put(ingredient, new IngredientPair(quantity, unit));
         database.setValue(this, "users", username, "recipes", title);
     }
 
@@ -100,9 +101,9 @@ public class Recipe implements Comparable<Recipe> {
         stringBuilder.append("");
 
         int count = 0;
-        for (Map.Entry<String, Pair<Integer, String>> ingredient : ingredients.entrySet()) {
-            Pair<Integer, String> ingredientsData = ingredient.getValue();
-            stringBuilder.append(++count).append(". ").append(ingredient.getKey()).append(" [Amt: ").append(ingredientsData.first).append(";").append(ingredientsData.second).append("]\n");
+        for (Map.Entry<String, IngredientPair> ingredient : ingredients.entrySet()) {
+            IngredientPair ingredientsData = ingredient.getValue();
+            stringBuilder.append(++count).append(". ").append(ingredient.getKey()).append(" [Amt: ").append(ingredientsData.getQuantity()).append(";").append(ingredientsData.getUnit()).append("]\n");
         }
 
         stringBuilder.append("\nDirections:\n");

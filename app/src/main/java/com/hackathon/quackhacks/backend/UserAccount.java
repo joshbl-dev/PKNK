@@ -3,13 +3,14 @@ package com.hackathon.quackhacks.backend;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.hackathon.quackhacks.MainActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class UserAccount {
+public class UserAccount implements Serializable {
     public String email;
     private String username;
     public String password;

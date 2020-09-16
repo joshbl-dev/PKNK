@@ -29,9 +29,9 @@ public class RecipeView extends BaseView {
         instructions.setText(recipe.getInstructions());
 
 
-        List<String> ingredients = recipe.getIngredients();
-        List<Integer> quantities = recipe.getQuantities();
-        List<String> units = recipe.getUnits();
+        List<String> ingredients = recipe.ingredients();
+        List<Integer> quantities = recipe.ingredientQuantities();
+        List<String> units = recipe.ingredientUnits();
 
         StringBuilder ingredientString = new StringBuilder();
 

@@ -70,6 +70,9 @@ public class FriendRequestView extends BaseView {
             });
         } else {
             friend.getFriendsPending().remove(username);
+            if (!friend.getFriends().contains(username)) {
+                friend.addFriend(username);
+            }
             save(friend);
         }
 
