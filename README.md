@@ -1,1 +1,2 @@
-QuackHacks2020
+Clone and run on any Android Emulator
+
